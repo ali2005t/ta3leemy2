@@ -41,19 +41,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (hash && hash.length > 2 && hash.startsWith('#/')) {
         // Exclude internal navigation hashes if any (e.g. #contact) - unlikely in this architecture
         const slug = hash.substring(2); // Remove #/
-        if (slug && !slug.includes('/')) { // Simple slug check
+        if (slug && !slug.includes('/')) {
             try {
-                const q = query(collection(db, "teachers"), where("slug", "==", slug));
-                const snap = await getDocs(q);
-                if (!snap.empty) {
-                    const tid = snap.docs[0].id;
-                    sessionStorage.setItem('currentTeacherId', tid);
+                let tid = null;
+                // 1. Try Slug
+                let q = query(collection(db, "teachers"), where("slug", "==", slug));
+                let snap = await getDocs(q);
 
-                    // Clean URL optionally or keep hash for visuals?
-                    // User wants: index.html#/math
-                    // So we KEEP it. But we must ensure 't' param logic knows about it.
+                // 2. Try Platform Name (Fallback like Home Page)
+                if (snap.empty) {
+                    const nameQuery = decodeURIComponent(slug).replace(/-/g, ' ');
+                    q = query(collection(db, "teachers"), where("platformName", "==", nameQuery));
+                    snap = await getDocs(q);
+                }
+
+                if (!snap.empty) {
+                    tid = snap.docs[0].id;
+                    sessionStorage.setItem('currentTeacherId', tid);
                 } else {
-                    console.warn("Slug not found:", slug);
+                    console.warn("Slug/Name not found:", slug);
                 }
             } catch (e) {
                 console.error("Slug Query Error:", e);
