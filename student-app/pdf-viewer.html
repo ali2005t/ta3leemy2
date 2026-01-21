@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عارض الملفات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #1e293b;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        /* HEADER (Only visible if NOT embedded) */
+        .app-header {
+            height: 50px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            border-bottom: 1px solid #334155;
+            position: relative;
+            z-index: 100;
+        }
+
+        .close-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: none;
+            color: #ef4444;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* VIEWER CONTAINER */
+        .viewer-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /* Default full height */
+            background: #000;
+        }
+
+        /* If header is present, adjust height */
+        body.has-header .viewer-container {
+            height: calc(100vh - 50px);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* SECURITY LAYERS */
+
+        /* 1. Toolbar Shield: The Invisible Wall */
+        /* Blocks the top 65px where Drive buttons live */
+        .toolbar-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 65px;
+            background: transparent;
+            /* Invisible */
+            z-index: 50;
+            cursor: default;
+        }
+
+        /* 2. Watermark */
+        .floating-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            color: rgba(255, 255, 255, 0.08);
+            /* Very faint */
+            font-size: 2.5rem;
+            font-weight: 900;
+            z-index: 40;
+            pointer-events: none;
+            white-space: nowrap;
+            width: 100%;
+            text-align: center;
+            line-height: 2;
+            animation: moveWatermark 25s linear infinite alternate;
+        }
+
+        @keyframes moveWatermark {
+            0% {
+                transform: translate(-50%, -50%) rotate(-30deg) scale(0.9);
+                opacity: 0.05;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(-30deg) scale(1.1);
+                opacity: 0.15;
+            }
+        }
+    </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script><link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <!-- Header (Hidden in Embed Mode) -->
+    <header class="app-header" id="main-header">
+        <button class="close-btn" onclick="window.close()">
+            <i class="fas fa-times"></i> إغلاق
+        </button>
+        <span style="font-weight:bold; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-file-pdf" style="color:#ef4444;"></i> عرض الملف
+        </span>
+    </header>
+
+    <div class="viewer-container">
+        <!-- SHIELD: Covers Top Control Bar of Drive -->
+        <div class="toolbar-shield" title="عرض آمن"></div>
+
+        <div class="floating-watermark" id="watermark"></div>
+
+        <iframe id="pdf-frame" src=""></iframe>
+    </div>
+
+    <script type="module">
+        import { auth, db } from '../assets/js/firebase-config.js';
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Logic
+        const params = new URLSearchParams(window.location.search);
+        let url = params.get('url');
+        const isEmbed = params.get('embed') === 'true';
+
+        // 1. UI Setup (Embed vs Window)
+        if (isEmbed) {
+            document.getElementById('main-header').style.display = 'none';
+        } else {
+            document.body.classList.add('has-header');
+        }
+
+        // 2. URL Processing
+        if (url) {
+            // Ensure Preview Mode for cleanest UI
+            if (url.includes('drive.google.com')) {
+                if (url.includes('/view')) url = url.replace('/view', '/preview');
+                else if (!url.includes('/preview') && !url.includes('export=')) url += '/preview';
+            }
+            document.getElementById('pdf-frame').src = url;
+
+            // Clean up history if possible (cosmetic)
+            // history.replaceState(null, null, location.pathname); 
+        }
+
+        // 3. User Data & Watermark
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Try to get cached data if available in parent?
+                // Or Fetch fresh
+                let text = user.email;
+                try {
+                    const docSnap = await getDoc(doc(db, "students", user.uid));
+                    if (docSnap.exists()) {
+                        const d = docSnap.data();
+                        text = `${d.fullName || text}\n${d.phone || ''}`;
+                    }
+                } catch (e) { }
+
+                const wm = document.getElementById('watermark');
+                wm.innerHTML = `<div>${text}<br>${text}<br>${text}</div>`;
+            }
+        });
+
+        // 4. Security (Anti-Screenshot Attempt)
+        document.addEventListener('keyup', (e) => {
+            if (e.key == 'PrintScreen') {
+                navigator.clipboard.writeText('');
+                document.body.style.display = 'none';
+                alert('🚫 التقاط الشاشة غير مسموح');
+                setTimeout(() => document.body.style.display = 'block', 500);
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            document.body.style.filter = 'blur(10px)';
+            document.body.style.opacity = '0.1';
+        });
+
+        window.addEventListener('focus', () => {
+            document.body.style.filter = 'none';
+            document.body.style.opacity = '1';
+        });
+
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات المنصة - Ta3leemy Teacher</title>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style.css?v=2">
+    <link rel="stylesheet" href="../assets/css/dashboard.css?v=2">
+    <link rel="stylesheet" href="../assets/css/dashboard-new.css?v=2">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">إعدادات المنصة</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- General Settings -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">هوية المنصة</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label for="setting-platform-name"
+                                style="display:block; margin-bottom:0.5rem; color:#94a3b8;">اسم المنصة</label>
+                            <input type="text" id="setting-platform-name" class="form-input"
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رابط المنصة (English
+                                ID)</label>
+                            <div
+                                style="display:flex; align-items:center; background:#0f172a; border:1px solid #334155; border-radius:8px; padding-left:10px;">
+                                <span style="color:#64748b; font-size:0.9rem;">#/</span>
+                                <input type="text" id="platform-slug" class="form-input" placeholder="my-school"
+                                    style="flex:1; padding:10px; background:transparent; border:none; color:white; outline:none;">
+                            </div>
+                            <p style="font-size:0.8rem; color:#64748b; margin-top:5px;">استخدم حروف إنجليزية وأرقام
+                                وعلامة (-) فقط. هذا سيجعل رابط تطبيقك احترافياً.</p>
+                        </div>
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.8rem; color:#94a3b8;">لون المنصة
+                                الرئيسي</label>
+
+                            <!-- Preset Themes -->
+                            <div style="display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;">
+                                <div onclick="setTheme('#6366f1')" class="theme-swatch" style="background:#6366f1;"
+                                    title="Indigo"></div>
+                                <div onclick="setTheme('#3b82f6')" class="theme-swatch" style="background:#3b82f6;"
+                                    title="Blue"></div>
+                                <div onclick="setTheme('#0ea5e9')" class="theme-swatch" style="background:#0ea5e9;"
+                                    title="Sky"></div>
+                                <div onclick="setTheme('#10b981')" class="theme-swatch" style="background:#10b981;"
+                                    title="Emerald"></div>
+                                <div onclick="setTheme('#f59e0b')" class="theme-swatch" style="background:#f59e0b;"
+                                    title="Amber"></div>
+                                <div onclick="setTheme('#f43f5e')" class="theme-swatch" style="background:#f43f5e;"
+                                    title="Rose"></div>
+                                <div onclick="setTheme('#8b5cf6')" class="theme-swatch" style="background:#8b5cf6;"
+                                    title="Violet"></div>
+                                <div onclick="setTheme('#0f172a')" class="theme-swatch" style="background:#0f172a;"
+                                    title="Dark Slate"></div>
+                            </div>
+
+                            <div
+                                style="display:flex; gap:10px; align-items:center; background:#0f172a; padding:10px; border-radius:8px; border:1px solid #334155;">
+                                <input type="color" id="platform-color" value="#6366f1"
+                                    style="height:35px; width:50px; border:none; background:none; cursor:pointer;">
+                                <span style="color:#cbd5e1; font-size:0.9rem;">تخصيص لون مخصص</span>
+                            </div>
+                            <style>
+                                .theme-swatch {
+                                    width: 45px;
+                                    height: 35px;
+                                    border-radius: 6px;
+                                    cursor: pointer;
+                                    transition: transform 0.2s, box-shadow 0.2s;
+                                    border: 2px solid transparent;
+                                }
+
+                                .theme-swatch:hover {
+                                    transform: translateY(-3px);
+                                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                                }
+
+                                .theme-swatch.active {
+                                    border-color: white;
+                                    box-shadow: 0 0 0 2px #3b82f6;
+                                }
+                            </style>
+                            <script>
+                                function setTheme(color) {
+                                    document.getElementById('platform-color').value = color;
+                                    // Visual Feedback
+                                    document.querySelectorAll('.theme-swatch').forEach(el => {
+                                        el.classList.remove('active');
+                                        if (el.getAttribute('onclick').includes(color)) el.classList.add('active');
+                                    });
+                                }
+                                // Sync manual input
+                                document.getElementById('platform-color').addEventListener('input', (e) => {
+                                    document.querySelectorAll('.theme-swatch').forEach(el => el.classList.remove('active'));
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">شعار المنصة</label>
+                            <div style="display:flex; align-items:center; gap:15px;">
+                                <img id="img-preview" src=""
+                                    style="width:60px; height:60px; border-radius:12px; object-fit:cover; display:none; border:2px solid #334155; background:#1e293b;">
+                                <div style="flex:1;">
+                                    <input type="file" id="logo-upload" accept="image/*" class="form-input"
+                                        style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                                    <input type="hidden" id="profile-image">
+                                </div>
+                            </div>
+                            <p style="font-size:0.8rem; color:#64748b; margin-top:5px;">يفضل استخدام صورة مربعة بحجم
+                                512x512</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Landing Page Settings -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">واجهة التطبيق الترحيبية (Bio & Info)</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">تخصيص البيانات التي تظهر للطلاب في الصفحة الرئيسية.
+                        </p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">نبذة عن المعلم
+                                (Bio)</label>
+                            <textarea id="teacher-bio" class="form-input" rows="4"
+                                placeholder="اكتب نبذة مختصرة عنك تظهر للطلاب..."
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;"></textarea>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">العنوان / الموقع
+                                (Location)</label>
+                            <input type="text" id="teacher-location" class="form-input"
+                                placeholder="مثال: القاهرة، مدينة نصر، شارع..."
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">عداد الطلاب (رقم
+                                للتفاخر)</label>
+                            <input type="number" id="student-counter" class="form-input" placeholder="مثال: 1500"
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                            <p style="font-size:0.8rem; color:#64748b; margin-top:5px;">هذا الرقم سيظهر بشكل متحرك في
+                                واجهة الطالب. اتركه فارغاً لإخفائه.</p>
+                        </div>
+
+                        <!-- Toggles -->
+                        <div
+                            style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; margin-top:15px; border-top:1px solid #334155; padding-top:15px;">
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                                <input type="checkbox" id="show-location-toggle"
+                                    style="width:18px; height:18px; accent-color:#6366f1;">
+                                <span style="color:#cbd5e1;">عرض الموقع في الصفحة الرئيسية</span>
+                            </label>
+
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                                <input type="checkbox" id="show-gallery-toggle"
+                                    style="width:18px; height:18px; accent-color:#6366f1;">
+                                <span style="color:#cbd5e1;">عرض معرض الصور</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Gallery -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">معرض صور الطلاب</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">ارفع صور لتكريم الطلاب أو فعاليات المنصة (تظهر في
+                            المتحرك).</p>
+                    </div>
+                    <div class="card-body">
+                        <div style="border: 2px dashed #334155; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: background 0.2s;"
+                            onmouseover="this.style.background='rgba(255,255,255,0.05)'"
+                            onmouseout="this.style.background='transparent'"
+                            onclick="document.getElementById('gallery-upload').click()">
+                            <i class="fas fa-cloud-upload-alt"
+                                style="font-size: 2rem; color: #64748b; margin-bottom: 10px;"></i>
+                            <p style="color: #94a3b8; margin: 0;">اضغط هنا لرفع صور (يمكنك اختيار أكثر من صورة)</p>
+                            <input type="file" id="gallery-upload" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div id="gallery-preview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                            <!-- JS will populate -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homepage Arrangement -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">ترتيب الصفحة الرئيسية</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">تحكم في ترتيب ظهور الأقسام في صفحتك.</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="section-order-list">
+                            <!-- JS will populate -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Years -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">السنوات الدراسية</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">حدد السنوات التي تدرسها لتظهر للطلاب عند التسجيل.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div style="display:flex; gap:10px; margin-bottom:1rem;">
+                            <input type="text" id="new-year-input"
+                                placeholder="أضف سنة دراسية (مثال: الصف الأول الثانوي)"
+                                style="flex:1; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                            <button id="add-year-btn" class="btn"
+                                style="background:#6366f1; color:white; border:none; padding:0 20px; border-radius:8px; cursor:pointer;">إضافة</button>
+                        </div>
+                        <div id="years-list" style="display:flex; flex-wrap:wrap; gap:10px;">
+                            <!-- Tags go here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Data -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">بيانات الدعم الفني</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">أرقام التواصل التي ستظهر للطلاب عند الحاجة للمساعدة.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رقم واتساب (الدعم
+                                الفني)</label>
+                            <input type="text" id="whatsapp-support" class="form-input" placeholder="مثال: +2010xxxxxxx"
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رابط تليجرام (أو
+                                المعرف)</label>
+                            <input type="text" id="telegram-support" class="form-input"
+                                placeholder="مثال: @username أو https://t.me/..."
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رقم فريق الأونلاين
+                                (اختياري)</label>
+                            <input type="text" id="online-team-phone" class="form-input"
+                                placeholder="مثال: +2011xxxxxxx"
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رقم الدعم العلمي
+                                (اختياري)</label>
+                            <input type="text" id="scientific-support-phone" class="form-input"
+                                placeholder="مثال: +2012xxxxxxx"
+                                style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Domain Settings -->
+                <div class="content-card" style="margin-bottom:2rem;">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin:0;">ربط دومين خاص</h3>
+                        <p style="color:#64748b; font-size:0.9rem;">يمكنك ربط اسم نطاق خاص بك (مثل www.myschool.com)
+                            بدلاً من الرابط الافتراضي.</p>
+                    </div>
+                    <div class="card-body">
+                        <div
+                            style="background:rgba(56, 189, 248, 0.1); border:1px solid rgba(56, 189, 248, 0.2); padding:15px; border-radius:8px; margin-bottom:20px;">
+                            <h4 style="margin-top:0; color:#38bdf8; font-size:1rem;"><i class="fas fa-info-circle"></i>
+                                تعليمات الربط:</h4>
+                            <ol
+                                style="margin-bottom:0; padding-right:20px; color:#cbd5e1; font-size:0.9rem; line-height:1.7;">
+                                <li>قم بشراء الدومين من أي مزود (Hostinger, GoDaddy, Namecheap).</li>
+                                <li>ادخل إلى إعدادات <b>DNS</b> وأضف سجل من نوع <b>A Record</b>.</li>
+                                <li>الاسم (Name): <b>@</b></li>
+                                <li>الهدف (Value): <b>75.2.60.5</b> (IP الخاص بسيرفر الاستضافة).</li>
+                                <li>لإعداد الـ www، أضف سجل <b>CNAME</b> يشير إلى رابط المنصة الأصلي (Netlify URL).</li>
+                                <li>بعد ذلك اكتب اسم الدومين في الأسفل واضغط "تحقق".</li>
+                            </ol>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">رابط الدومين
+                                الخاص</label>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" id="custom-domain-input" class="form-input"
+                                    placeholder="www.example.com"
+                                    style="flex:1; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                                <button type="button" onclick="verifyDomain()"
+                                    style="background:#3b82f6; color:white; border:none; padding:0 20px; border-radius:8px; cursor:pointer; font-weight:bold;">
+                                    <i class="fas fa-link"></i> تحقق
+                                </button>
+                            </div>
+                        </div>
+                        <div id="domain-status-msg"
+                            style="margin-top:10px; padding:10px; border-radius:8px; font-size:0.9rem; display:none;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button id="save-btn"
+                    style="width:100%; padding:15px; background:#10b981; color:white; border:none; border-radius:8px; font-weight:bold; font-size:1.1rem; cursor:pointer;">حفظ
+                    التغييرات</button>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { auth, db, storage } from '../assets/js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+        import '../assets/js/dashboard.js';
+        import { getEffectiveUserUid } from '../assets/js/impersonation-manager.js';
+        import { UIManager } from '../assets/js/ui-manager.js';
+
+        window.UIManager = UIManager;
+
+        let currentYears = [];
+        let currentGallery = [];
+        let currentUserUid = null;
+        let sectionOrder = ['gallery', 'location', 'bio', 'counter']; // Default order
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserUid = await getEffectiveUserUid(user);
+                if (currentUserUid) loadSettings(currentUserUid);
+            } else {
+                window.location.href = '../auth/login.html';
+            }
+        });
+
+        async function loadSettings(uid) {
+            const docRef = doc(db, "teachers", uid);
+            const snap = await getDoc(docRef);
+            if (snap.exists()) {
+                const data = snap.data();
+                document.getElementById('setting-platform-name').value = data.platformName || '';
+                document.getElementById('platform-slug').value = data.slug || '';
+                document.getElementById('platform-color').value = data.platformColor || '#6366f1';
+
+                // Branding Load
+                document.getElementById('teacher-bio').value = data.bio || '';
+                document.getElementById('teacher-location').value = data.location || '';
+                document.getElementById('student-counter').value = data.studentCounter || '';
+
+                // Toggles
+                document.getElementById('show-location-toggle').checked = !!data.showLocation;
+                document.getElementById('show-gallery-toggle').checked = !!data.showGallery;
+
+                // Support Data
+                document.getElementById('whatsapp-support').value = data.supportPhone || '';
+                document.getElementById('telegram-support').value = data.telegramSupport || '';
+                document.getElementById('online-team-phone').value = data.onlineSupportPhone || '';
+                document.getElementById('scientific-support-phone').value = data.scientificSupportPhone || '';
+
+                const imgUrl = data.profileImage || '';
+                document.getElementById('profile-image').value = imgUrl;
+
+                const imgPreview = document.getElementById('img-preview');
+                if (imgUrl) {
+                    imgPreview.src = imgUrl;
+                    imgPreview.style.display = 'block';
+                }
+
+                currentYears = data.academicYears || [];
+                renderYears();
+
+                currentGallery = data.galleryImages || [];
+                renderGalleryPreview();
+
+                if (data.sectionOrder) {
+                    sectionOrder = data.sectionOrder;
+                }
+                renderSectionOrder();
+
+                // Load Domain Status
+                if (data.customDomain) {
+                    // Ensure function exists (it's defined in window)
+                    if (window.updateDomainStatusUI) {
+                        updateDomainStatusUI(data.customDomain, data.domainStatus || 'pending', data.domainRejectionReason);
+                    }
+                    const domainInput = document.getElementById('custom-domain-input');
+                    if (domainInput) domainInput.value = data.customDomain;
+                }
+            }
+        }
+
+        function renderSectionOrder() {
+            const container = document.getElementById('section-order-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const labels = {
+                'gallery': 'معرض الصور',
+                'location': 'الموقع والعنوان',
+                'bio': 'نبذة عن المعلم',
+                'counter': 'عداد الطلاب'
+            };
+
+            sectionOrder.forEach((section, index) => {
+                const div = document.createElement('div');
+                div.style.cssText = 'background:#1e293b; padding:10px 15px; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #334155; transition:background 0.2s;';
+
+                div.innerHTML = `
+                    <span style="color:#e2e8f0; font-weight:500;">${labels[section] || section}</span>
+                    <div style="display:flex; gap:8px;">
+                        <button onclick="moveSectionBox('${index}', -1)" type="button" style="background:rgba(255,255,255,0.05); border:1px solid #475569; color:${index === 0 ? '#475569' : '#cbd5e1'}; cursor:${index === 0 ? 'default' : 'pointer'}; padding:5px 10px; border-radius:5px;"><i class="fas fa-arrow-up"></i></button>
+                        <button onclick="moveSectionBox('${index}', 1)" type="button" style="background:rgba(255,255,255,0.05); border:1px solid #475569; color:${index === sectionOrder.length - 1 ? '#475569' : '#cbd5e1'}; cursor:${index === sectionOrder.length - 1 ? 'default' : 'pointer'}; padding:5px 10px; border-radius:5px;"><i class="fas fa-arrow-down"></i></button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.moveSectionBox = function (index, direction) {
+            index = parseInt(index);
+            if (direction === -1 && index > 0) {
+                [sectionOrder[index], sectionOrder[index - 1]] = [sectionOrder[index - 1], sectionOrder[index]];
+            } else if (direction === 1 && index < sectionOrder.length - 1) {
+                [sectionOrder[index], sectionOrder[index + 1]] = [sectionOrder[index + 1], sectionOrder[index]];
+            }
+            renderSectionOrder();
+        };
+
+        function renderGalleryPreview() {
+            const container = document.getElementById('gallery-preview');
+            container.innerHTML = '';
+            currentGallery.forEach((url, index) => {
+                const div = document.createElement('div');
+                div.style.cssText = 'position:relative; width:80px; height:80px; border-radius:8px; overflow:hidden; border:1px solid #475569;';
+                div.innerHTML = `
+            <img src="${url}" style="width:100%; height:100%; object-fit:cover;">
+            <div onclick="removeGalleryImage(${index})" style="position:absolute; top:2px; right:2px; background:rgba(220, 38, 38, 0.9); color:white; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; font-weight:bold;">×</div>
+        `;
+                container.appendChild(div);
+            });
+        }
+
+        window.removeGalleryImage = async function (index) {
+            if (await UIManager.showConfirm('حذف صورة', 'هل أنت متأكد من حذف هذه الصورة؟', 'نعم، احذف', 'تراجع')) {
+                currentGallery.splice(index, 1);
+                renderGalleryPreview();
+            }
+        }
+
+        function renderYears() {
+            const container = document.getElementById('years-list');
+            if (container) {
+                container.innerHTML = '';
+                currentYears.forEach((year, index) => {
+                    const tag = document.createElement('div');
+                    tag.style.cssText = 'background:#1e293b; padding:5px 12px; border-radius:20px; font-size:0.9rem; display:flex; align-items:center; gap:8px; border:1px solid #334155;';
+                    tag.innerHTML = `
+                ${year}
+                <i class="fas fa-times" style="cursor:pointer; color:#ef4444;" onclick="removeYear(${index})"></i>
+            `;
+                    container.appendChild(tag);
+                });
+            }
+        }
+
+        window.removeYear = function (index) {
+            currentYears.splice(index, 1);
+            renderYears();
+        }
+
+        document.getElementById('add-year-btn').addEventListener('click', () => {
+            const input = document.getElementById('new-year-input');
+            const val = input.value.trim();
+            if (val) {
+                currentYears.push(val);
+                input.value = '';
+                renderYears();
+            }
+        });
+
+        window.verifyDomain = async function () {
+            const input = document.getElementById('custom-domain-input');
+            const msg = document.getElementById('domain-status-msg');
+            const domain = input.value.trim();
+
+            if (!domain) {
+                UIManager.showToast('يرجى كتابة الدومين أولاً', 'error');
+                return;
+            }
+
+            // UI Loading for Save
+            msg.style.display = 'block';
+            msg.style.background = 'rgba(56, 189, 248, 0.1)';
+            msg.style.border = '1px solid rgba(56,189,248,0.2)';
+            msg.style.color = '#38bdf8';
+            msg.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إرسال الطلب...';
+
+            try {
+                // 1. Save to Firestore immediately
+                const { updateDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+
+                await updateDoc(doc(db, "teachers", currentUserUid), {
+                    customDomain: domain,
+                    domainStatus: 'pending', // Re-trigger pending status on update
+                    domainUpdatedAt: new Date()
+                });
+
+                // 2. Refresh Status UI
+                updateDomainStatusUI(domain, 'pending');
+                UIManager.showToast('تم إرسال طلب الدومين للمراجعة', 'success');
+
+            } catch (error) {
+                console.error("Error saving domain:", error);
+                msg.style.background = 'rgba(239, 68, 68, 0.1)';
+                msg.style.border = '1px solid rgba(239, 68, 68, 0.2)';
+                msg.style.color = '#ef4444';
+                msg.innerHTML = `<i class="fas fa-times-circle"></i> حدث خطأ أثناء الحفظ. حاول مرة أخرى.`;
+            }
+        };
+
+        // Helper to update UI based on Status
+        window.updateDomainStatusUI = function (domain, status, reason) {
+            const msg = document.getElementById('domain-status-msg');
+            const input = document.getElementById('custom-domain-input');
+            if (!msg) return;
+
+            if (!domain && !status) {
+                msg.style.display = 'none';
+                return;
+            }
+
+            msg.style.display = 'block';
+            if (input && !input.value) input.value = domain || '';
+
+            if (status === 'active') {
+                msg.style.background = 'rgba(16, 185, 129, 0.1)'; // Green
+                msg.style.border = '1px solid rgba(16, 185, 129, 0.2)';
+                msg.style.color = '#10b981';
+                msg.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px; padding:10px;">
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <i class="fas fa-check-circle" style="font-size:2rem;"></i>
+                            <div>
+                                <strong style="display:block; margin-bottom:5px; font-size:1.1rem;">الدومين يعمل بنجاح! 🚀</strong>
+                                <div style="font-size:0.95rem; opacity:0.9; margin-bottom:5px;">
+                                    رابط منصتك الآن: <a href="https://${domain}" target="_blank" style="color:inherit; text-decoration:underline; font-weight:bold;">${domain}</a>
+                                </div>
+                                <div style="font-size:0.8rem; opacity:0.7;">
+                                    <i class="fas fa-lock"></i> اتصال آمن (SSL Active)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex; gap:10px;">
+                            <a href="https://${domain}" target="_blank" 
+                               style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); color:white; padding:8px 15px; border-radius:6px; text-decoration:none; font-size:0.9rem; display:flex; align-items:center; gap:5px;">
+                               <i class="fas fa-external-link-alt"></i> فتح المنصة
+                            </a>
+                            <button onclick="document.getElementById('custom-domain-input').value=''; document.getElementById('domain-status-msg').style.display='none'; document.getElementById('custom-domain-input').focus();"
+                               style="background:transparent; border:1px solid rgba(255,255,255,0.3); color:white; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.9rem;">
+                               <i class="fas fa-pen"></i> تغيير الدومين
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // Disable input only visually or functionally? Users asked to change it. 
+                // Let's keep it editable but maybe indicate it's active.
+            }
+            else if (status === 'failed' || status === 'rejected') {
+                msg.style.background = 'rgba(239, 68, 68, 0.1)'; // Red
+                msg.style.border = '1px solid rgba(239, 68, 68, 0.2)';
+                msg.style.color = '#ef4444';
+
+                let reasonHtml = '';
+                if (reason) {
+                    reasonHtml = `
+                    <div style="margin-top:10px; background:rgba(0,0,0,0.2); padding:10px; border-radius:6px; font-size:0.9rem;">
+                        <strong>سبب الرفض:</strong>
+                        <div style="margin-top:2px;">${reason}</div>
+                    </div>`;
+                }
+
+                msg.innerHTML = `
+                    <div style="padding:10px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fas fa-exclamation-triangle" style="font-size:1.5rem;"></i>
+                            <div>
+                                <strong style="display:block; margin-bottom:2px;">فشل الربط (Rejected)</strong>
+                                <span style="font-size:0.9rem; opacity:0.8;">يرجى مراجعة السبب الموضح أدناه وتصحيح الإعدادات.</span>
+                            </div>
+                        </div>
+                        ${reasonHtml}
+                    </div>
+                `;
+            }
+
+            else if (status === 'pending') {
+                msg.style.background = 'rgba(245, 158, 11, 0.1)'; // Yellow/Orange
+                msg.style.border = '1px solid rgba(245, 158, 11, 0.2)';
+                msg.style.color = '#f59e0b';
+                msg.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding:10px; flex-wrap:wrap; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fas fa-clock" style="font-size:1.5rem;"></i>
+                            <div>
+                                <strong style="display:block; margin-bottom:2px;">تحت المراجعة (Pending)</strong>
+                                <span style="font-size:0.9rem; opacity:0.8;">جاري التحقق من الإعدادات وسجلات DNS. سيتم التفعيل قريباً.</span>
+                            </div>
+                        </div>
+                        <a href="https://support.hostinger.com/en/articles/4738776-how-to-manage-dns-records-at-hostinger" target="_blank" 
+                           style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:white; padding:5px 12px; border-radius:6px; text-decoration:none; font-size:0.85rem; display:flex; align-items:center; gap:5px;">
+                           <i class="fas fa-book-open"></i> كيفية ضبط DNS
+                        </a>
+                    </div >
+                `;
+            } else {
+                msg.style.display = 'none';
+            }
+        }
+
+        // Client-side Image Compression Helper
+        const compressImage = (file, maxWidth, quality) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = (err) => reject(err);
+                };
+                reader.onerror = (err) => reject(err);
+            });
+        };
+
+        document.getElementById('save-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('save-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+            btn.disabled = true;
+
+            try {
+                let imageUrl = document.getElementById('profile-image').value;
+                const fileInput = document.getElementById('logo-upload');
+                const galleryInput = document.getElementById('gallery-upload');
+
+                // Platform Slug Logic
+                const slugInput = document.getElementById('platform-slug');
+                let slug = slugInput.value.trim().toLowerCase();
+                if (slug) {
+                    if (!/^[a-z0-9-]+$/.test(slug)) {
+                        throw new Error("رابط المنصة يجب أن يحتوي على حروف إنجليزية وأرقام وعلامة (-) فقط");
+                    }
+                    const q = query(collection(db, "teachers"), where("slug", "==", slug));
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        let exists = false;
+                        querySnapshot.forEach(d => {
+                            if (d.id !== currentUserUid) exists = true;
+                        });
+                        if (exists) throw new Error("هذا الرابط مستخدم بالفعل، يرجى اختيار اسم آخر");
+                    }
+                }
+
+                // Profile Image Upload
+                if (fileInput.files.length > 0) {
+                    imageUrl = await compressImage(fileInput.files[0], 500, 0.7); // Compress Profile (Smaller)
+                }
+
+                // Gallery Uploads (Base64)
+                if (galleryInput.files.length > 0) {
+                    const uploadPromises = Array.from(galleryInput.files).map(async (file) => {
+                        return await compressImage(file, 1024, 0.7); // Compress Gallery Images
+                    });
+
+                    const newUrls = await Promise.all(uploadPromises);
+                    currentGallery = [...currentGallery, ...newUrls];
+                    renderGalleryPreview();
+                    // Clear input
+                    galleryInput.value = '';
+                }
+
+                await updateDoc(doc(db, "teachers", currentUserUid), {
+                    platformName: document.getElementById('setting-platform-name').value,
+                    slug: slug,
+                    platformColor: document.getElementById('platform-color').value,
+
+                    bio: document.getElementById('teacher-bio').value,
+                    location: document.getElementById('teacher-location').value,
+                    studentCounter: document.getElementById('student-counter').value,
+
+                    // Toggles
+                    showLocation: document.getElementById('show-location-toggle').checked,
+                    showGallery: document.getElementById('show-gallery-toggle').checked,
+                    galleryImages: currentGallery,
+                    sectionOrder: sectionOrder,
+
+                    supportPhone: document.getElementById('whatsapp-support').value,
+                    telegramSupport: document.getElementById('telegram-support').value,
+                    onlineSupportPhone: document.getElementById('online-team-phone').value,
+                    scientificSupportPhone: document.getElementById('scientific-support-phone').value,
+
+                    profileImage: imageUrl,
+                    academicYears: currentYears
+                });
+
+                UIManager.showToast('تم حفظ الإعدادات بنجاح', 'success');
+                document.getElementById('profile-image').value = imageUrl;
+
+            } catch (e) {
+                console.error(e);
+                UIManager.showToast('خطأ: ' + e.message, 'error');
+            } finally {
+                btn.innerHTML = 'حفظ التغييرات';
+                btn.disabled = false;
+            }
+        });
+
+        // Toggle sidebar
+        const sbBtn = document.getElementById('open-sidebar');
+        if (sbBtn) sbBtn.onclick = () => document.getElementById('sidebar').classList.toggle('active');
+
+    </script>
+    <script>
+        window.toggleSubmenu = function (id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+            }
+        };
+    </script>
+</body>
+
+</html>

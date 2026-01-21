@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإشعارات - Ta3leemy</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .notif-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+
+                <!-- Send New Notification -->
+                <div class="notif-card">
+                    <h3 style="color:white; margin-bottom:1rem;"><i class="fas fa-paper-plane"></i> إرسال إشعار جديد
+                    </h3>
+                    <form id="send-notif-form">
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label>إلى:</label>
+                            <select id="target-audience" class="form-input">
+                                <option value="all">الكل (معلمين وطلاب)</option>
+                                <option value="all_teachers">كل المعلمين</option>
+                                <option value="all_students">كل الطلاب</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label>عنوان الإشعار</label>
+                            <input type="text" id="notif-title" class="form-input"
+                                placeholder="مثال: تحديث هام في المنصة" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom:1rem;">
+                            <label>نص الرسالة</label>
+                            <textarea id="notif-body" class="form-input" rows="3" placeholder="اكتب رسالتك هنا..."
+                                required></textarea>
+                        </div>
+                        <div style="text-align:left;">
+                            <button type="submit" class="btn btn-primary" id="send-btn">
+                                <i class="fas fa-paper-plane"></i> إرسال الآن
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- History -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <h3 style="color:white; margin:0;">سجل الإشعارات المرسلة</h3>
+                    <button id="delete-all-btn" onclick="window.deleteAllAdminNotifications()"
+                        style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-weight:bold; font-size:0.9rem;">
+                        <i class="fas fa-trash-alt"></i> حذف الكل
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>العنوان</th>
+                                    <th>الرسالة</th>
+                                    <th>المستلمون</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notif-history-body">
+                                <!-- JS Loading -->
+                            </tbody>
+                        </table>
+                        <div id="loading-indicator" class="loading-state"><i class="fas fa-spinner fa-spin"></i> جاري
+                            التحميل...</div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/dashboard.js"></script>
+    <script type="module" src="../assets/js/admin/admin-notifications.js?v=9.0"></script>
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('مركز الإشعارات'));
+    </script>
+</body>
+
+</html>

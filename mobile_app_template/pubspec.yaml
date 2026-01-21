@@ -1,0 +1,37 @@
+name: ta3leemy_teacher_app
+description: "A configurable Flutter WebView app for Ta3leemy teachers."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # WebView Requirement: Industry standard for rich web apps
+  flutter_inappwebview: ^6.0.0
+  
+  # Permission Handling (Camera, Mic, Storage)
+  permission_handler: ^11.0.0
+  
+  # URL Launcher (for external links like WhatsApp)
+  url_launcher: ^6.2.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21

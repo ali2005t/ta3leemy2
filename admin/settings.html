@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات المنصة - Ta3leemy</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin-settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <form id="settings-form">
+
+                    <!-- Section 1: General Identity -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <i class="fas fa-globe"></i>
+                            <h3>الهوية العامة</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>اسم المنصة</label>
+                                <input type="text" id="platform-name" class="form-input" placeholder="Ta3leemy">
+                            </div>
+                            <div class="form-group">
+                                <label>رابط الشرح / الفيديو التعريفي (Youtube)</label>
+                                <input type="url" id="platform-video" class="form-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>وصف المنصة (SEO)</label>
+                            <textarea id="platform-desc" class="form-input" rows="3"
+                                placeholder="وصف يظهر في محركات البحث..."></textarea>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1; margin-top:20px;">
+                            <label style="margin-bottom:10px; display:block;">تصميم الصفحة الرئيسية</label>
+                            <div class="layout-selector-grid"
+                                style="display:grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap:10px;">
+                                <div class="layout-option active" data-layout="v1" onclick="selectLayout('v1', this)"
+                                    style="border:2px solid var(--primary-color); padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div style="background:#0f172a; height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">افتراضي (Luxe)</span>
+                                </div>
+                                <div class="layout-option" data-layout="v2" onclick="selectLayout('v2', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:#ffffff; height:50px; border-radius:5px; margin-bottom:8px; border:1px solid #334155;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">رسمي (Light)</span>
+                                </div>
+                                <div class="layout-option" data-layout="v3" onclick="selectLayout('v3', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:linear-gradient(45deg, #4f46e5, #ec4899); height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">إبداعي (Bold)</span>
+                                </div>
+
+                                <!-- v4: Minimal -->
+                                <div class="layout-option" data-layout="v4" onclick="selectLayout('v4', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:#f8fafc; height:50px; border-radius:5px; margin-bottom:8px; border:1px solid #cbd5e1;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">بسيط (Minimal)</span>
+                                </div>
+
+                                <!-- v5: Tech/Cyber -->
+                                <div class="layout-option" data-layout="v5" onclick="selectLayout('v5', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:linear-gradient(135deg, #020617, #1e1b4b); height:50px; border-radius:5px; margin-bottom:8px; border:1px solid #4f46e5;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">تكنولوجي (Tech)</span>
+                                </div>
+
+                                <!-- v6: Soft/Pastel -->
+                                <div class="layout-option" data-layout="v6" onclick="selectLayout('v6', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div style="background:#e0e7ff; height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">هادئ (Soft)</span>
+                                </div>
+
+                                <!-- v7: Sunset/Vibrant -->
+                                <div class="layout-option" data-layout="v7" onclick="selectLayout('v7', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:linear-gradient(to right, #f97316, #db2777); height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">حيوي (Sunset)</span>
+                                </div>
+
+                                <!-- v8: Ocean -->
+                                <div class="layout-option" data-layout="v8" onclick="selectLayout('v8', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:linear-gradient(to right, #0ea5e9, #0f2c40); height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">محيط (Ocean)</span>
+                                </div>
+
+                                <!-- v9: Forest -->
+                                <div class="layout-option" data-layout="v9" onclick="selectLayout('v9', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:linear-gradient(to right, #052e16, #fbbf24); height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">غابة (Forest)</span>
+                                </div>
+
+                                <!-- v10: Midnight -->
+                                <div class="layout-option" data-layout="v10" onclick="selectLayout('v10', this)"
+                                    style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center; background:rgba(255,255,255,0.05);">
+                                    <div
+                                        style="background:#000; border:1px solid #d4af37; height:50px; border-radius:5px; margin-bottom:8px;">
+                                    </div>
+                                    <span style="font-size:0.9rem;">ملكي (Midnight)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Contact Info -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <i class="fas fa-headset"></i>
+                            <h3>معلومات التواصل</h3>
+                        </div>
+                        <div class="form-grid">
+                            <!-- Support Button Config -->
+                            <div class="form-group">
+                                <label>رابط زر الدعم (واتساب/تليجرام)</label>
+                                <input type="text" id="contact-support-link" class="form-input"
+                                    placeholder="https://wa.me/...">
+                            </div>
+                            <div class="form-group">
+                                <label>نص الزر</label>
+                                <input type="text" id="contact-support-text" class="form-input"
+                                    placeholder="تواصل معنا">
+                            </div>
+                            <div class="form-group">
+                                <label>أيقونة الزر</label>
+                                <select id="contact-support-icon" class="form-input">
+                                    <option value="fab fa-whatsapp">واتساب (WhatsApp)</option>
+                                    <option value="fab fa-telegram">تليجرام (Telegram)</option>
+                                    <option value="fab fa-facebook-messenger">ماسنجر (Messenger)</option>
+                                    <option value="fas fa-headset">دعم عام (Headset)</option>
+                                    <option value="fas fa-phone">هاتف (Phone)</option>
+                                </select>
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label>البريد الإلكتروني للدعم</label>
+                                <input type="email" id="contact-email" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Financial & Config -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <i class="fas fa-coins"></i>
+                            <h3>الإعدادات المالية</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>نسبة ضريبة القيمة المضافة (%)</label>
+                                <input type="number" id="config-tax" class="form-input" value="14">
+                            </div>
+                            <div class="form-group">
+                                <label>مدة الفترة التجريبية للمعلم (أيام)</label>
+                                <input type="number" id="config-trial-days" class="form-input" value="14">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 (New): Safety & Access -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>الأمان والتحكم</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <div class="toggle-wrapper"
+                                    style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155;">
+                                    <div>
+                                        <h4 style="margin:0 0 5px 0; color:white;">وضع الصيانة (Maintenance Mode)</h4>
+                                        <p style="margin:0; font-size:0.9rem; color:#94a3b8;">تفعيل هذا الوضع سيمنع جميع
+                                            الزوار من دخول الموقع (باستثناء الأدمن).</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="config-maintenance">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Maintenance Start/End Time -->
+                            <div id="maintenance-time-group"
+                                style="margin-top:15px; display:none; background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155;">
+                                <label style="color:#cbd5e1; margin-bottom:5px; display:block;">موعد انتهاء الصيانة
+                                    المتوقع</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <div>
+                                        <label style="font-size:0.8rem; color:#94a3b8;">التاريخ</label>
+                                        <input type="date" id="config-maintenance-date" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label style="font-size:0.8rem; color:#94a3b8;">الوقت</label>
+                                        <input type="time" id="config-maintenance-time" class="form-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>عناوين IP المحظورة (كل عنوان في سطر)</label>
+                            <textarea id="config-blocked-ips" class="form-input" rows="4"
+                                placeholder="192.168.1.1&#10;10.0.0.5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>النطاقات المحظورة (Email Domains)</label>
+                            <textarea id="config-blocked-domains" class="form-input" rows="4"
+                                placeholder="tempmail.com&#10;spam.org"></textarea>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Section 4: Policies -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>السياسات والقوانين</h3>
+                </div>
+                <div class="form-tabs"
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 10px;">
+                    <div style="display:flex; gap:10px;">
+                        <button type="button" class="tab-btn active" data-tab="terms">الشروط والأحكام</button>
+                        <button type="button" class="tab-btn" data-tab="privacy">سياسة الخصوصية</button>
+                    </div>
+                    <button type="button" id="btn-generate-policy"
+                        style="background: transparent; border: 1px dashed #38bdf8; color: #38bdf8; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
+                        <i class="fas fa-magic"></i> توليد نموذج جاهز
+                    </button>
+                </div>
+
+                <div id="tab-terms" class="tab-content active">
+                    <textarea id="policy-terms" class="form-input" rows="10"></textarea>
+                </div>
+                <div id="tab-privacy" class="tab-content">
+                    <textarea id="policy-privacy" class="form-input" rows="10"></textarea>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="settings-actions" style="display:flex; justify-content:space-between; align-items:center;">
+                <button type="button" class="btn btn-secondary" id="reset-defaults-btn"
+                    style="color:#ef4444; border-color:#ef4444;">
+                    <i class="fas fa-undo"></i> استعادة الافتراضي
+                </button>
+                <button type="submit" class="btn btn-primary" id="save-settings-btn">
+                    <i class="fas fa-save"></i> حفظ التغييرات
+                </button>
+            </div>
+
+            </form>
+    </div>
+    </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">تم الحفظ بنجاح!</div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/ui-manager.js"></script>
+    <script type="module" src="../assets/js/admin/admin-settings.js"></script> <!-- Separated JS -->
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('إعدادات المنصة'));
+    </script>
+
+    <!-- Custom Domain Logic -->
+    <script>
+        function verifyDomain() {
+            const domainInput = document.getElementById('custom-domain');
+            const statusDiv = document.getElementById('domain-status');
+            const domain = domainInput.value.trim();
+
+            if (!domain) {
+                alert('الرجاء كتابة اسم الدومين أولاً');
+                return;
+            }
+
+            // UI: Verifying
+            statusDiv.style.display = 'block';
+            statusDiv.style.background = 'rgba(56, 189, 248, 0.1)';
+            statusDiv.style.color = '#38bdf8';
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق من إعدادات DNS...';
+
+            // Simulate API Check
+            setTimeout(() => {
+                // Success Scenario
+                statusDiv.style.background = 'rgba(34, 197, 94, 0.1)';
+                statusDiv.style.color = '#22c55e';
+                statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> تم التحقق بنجاح! الدومين <b>${domain}</b> جاهز للعمل.`;
+
+                // Save simulation
+                // In real app, this would POST to backend
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /teacher-dashboard/
+Disallow: /student-dashboard/
+Disallow: /private/
+
+Sitemap: https://ta3leemy.com/sitemap.xml

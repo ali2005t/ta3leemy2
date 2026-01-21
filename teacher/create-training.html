@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء دورة تدريبية - Ta3leemy</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <button class="btn btn-secondary" onclick="window.history.back()">
+                        <i class="fas fa-arrow-right"></i> عودة
+                    </button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">إنشاء دورة تدريبية</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="auth-card" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+
+                    <form id="create-training-form">
+
+                        <div class="form-group">
+                            <label>عنوان الدورة التدريبية <span style="color:red">*</span></label>
+                            <input type="text" id="training-title" class="form-input"
+                                placeholder="مثال: دبلومة الفيزياء الشاملة" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>الوصف</label>
+                            <textarea id="training-desc" class="form-input" style="height:100px;"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>صورة الغلاف (رابط URL مؤقتاً)</label>
+                            <input type="url" id="training-image" class="form-input" placeholder="https://...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>ترتيب العرض (Order)</label>
+                            <input type="number" id="training-order" class="form-input" placeholder="مثال: 1" value="1">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label>حالة النشر</label>
+                            <select id="training-status" class="form-input">
+                                <option value="active">منشور</option>
+                                <option value="suspended">معلق</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>الصف الدراسي</label>
+                            <select id="training-grade" class="form-input">
+                                <!-- Filled by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-footer"
+                            style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-primary" id="save-btn">
+                                <span id="btn-text">إنشاء الدورة</span>
+                                <i class="fas fa-spinner fa-spin" id="btn-loader" style="display: none;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/create-training.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

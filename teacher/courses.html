@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الكورسات - Ta3leemy</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">كل الكورسات</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Logic: Usually courses are added inside trainings. But maybe standalone courses exist? -->
+                <!-- Linking to create-course without training ID is tricky unless we have a 'select training' dropdown there. -->
+                <!-- For now, better to direct them to 'trainings' first or assume we want to list all. -->
+                <button class="btn btn-primary"
+                    onclick="UIManager.showToast('يرجى إضافة الكورس من داخل الدورة التدريبية لضمان التنظيم', 'warning')">
+                    <i class="fas fa-plus"></i> إضافة كورس
+                </button>
+            </header>
+
+            <div class="page-content">
+
+                <div class="filters-bar">
+                    <div class="search-input-group">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-courses" class="form-input" placeholder="بحث باسم الكورس...">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="35%">اسم الكورس</th>
+                                <th width="20%">تابع لدورة</th>
+                                <th width="10%">السعر</th>
+                                <th width="10%">حالة النشر</th>
+                                <th width="10%">إنشاء</th>
+                                <th width="10%">الأوامر</th>
+                            </tr>
+                        </thead>
+                        <tbody id="courses-table-body">
+                            <!-- JS Injected -->
+                        </tbody>
+                    </table>
+                    <div id="loading-indicator" class="loading-state"><i class="fas fa-spinner fa-spin"></i> جاري
+                        التحميل...</div>
+                    <div id="empty-state" class="empty-state" style="display:none; border:none;">
+                        <p>لا توجد كورسات مضافة</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Row Template -->
+    <template id="course-row-template">
+        <tr>
+            <td class="row-index">1</td>
+            <td class="col-main row-title">اسم الكورس</td>
+            <td class="col-meta row-training">اسم الدورة</td>
+            <td class="row-price">0.00</td>
+            <td><span class="badge badge-purple row-status">منشور</span></td>
+            <td class="col-meta row-date">...</td>
+            <td>
+                <div class="action-dropdown">
+                    <button class="btn-icon-menu"><i class="fas fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item view-btn"><i class="fas fa-eye"></i> المحتوى</button>
+                        <button class="dropdown-item edit-btn"><i class="fas fa-edit"></i> تعديل</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/courses.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

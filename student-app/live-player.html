@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>البث المباشر</title>
+
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="../assets/css/student-desktop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script type="module" src="../assets/js/student-common.js"></script>
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+    <style>
+        :root {
+            --cinema-bg: #0f172a;
+            --cinema-card: #1e293b;
+            --cinema-text: #f8fafc;
+            --cinema-accent: #6366f1;
+            --video-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+
+        body {
+            background-color: var(--cinema-bg) !important;
+            color: var(--cinema-text) !important;
+            overflow-x: hidden;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Header Overrides */
+        .main-header {
+            background: transparent !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title {
+            color: var(--cinema-text) !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .icon-btn {
+            color: var(--cinema-text) !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            background: var(--cinema-accent) !important;
+            transform: scale(1.1);
+        }
+
+        /* Layout Grid */
+        .live-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            /* Slightly wider chat */
+            gap: 20px;
+            height: calc(100vh - 0px);
+            /* Full height logic processed by JS or Flex */
+            padding: 20px;
+            padding-top: 10px;
+            /* Space after header */
+            max-width: 1800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Video Section */
+        .video-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 0;
+            /* Important for Grid Overflow */
+        }
+
+        .video-container {
+            position: relative;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16/9;
+            /* Enforce Ratio */
+            box-shadow: var(--video-glow), 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plyr {
+            width: 100%;
+            height: 100%;
+        }
+
+        #video-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--cinema-text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            background: var(--cinema-card);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: calc(100vh - 100px);
+            /* Fixed height desktop */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--cinema-text);
+        }
+
+        iframe.chat-frame {
+            background: transparent;
+            /* Try to blend if possible */
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 900px) {
+            body {
+                overflow: hidden;
+                /* Prevent double scroll */
+            }
+
+            .live-layout {
+                display: flex;
+                flex-direction: column;
+                height: calc(100dvh - 60px);
+                padding: 0;
+                gap: 0;
+                max-width: 100%;
+            }
+
+            .main-header {
+                height: 50px !important;
+                background: var(--cinema-bg) !important;
+                padding: 0 15px !important;
+            }
+
+            .video-section {
+                width: 100%;
+                z-index: 10;
+                gap: 0;
+            }
+
+            .video-container {
+                border-radius: 0;
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                aspect-ratio: 16/9;
+                flex: none;
+            }
+
+            .video-info-mobile {
+                padding: 10px 15px;
+                background: var(--cinema-card);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            #video-title {
+                font-size: 1rem;
+            }
+
+            .chat-container {
+                border-radius: 0;
+                border: none;
+                height: auto;
+                flex: 1;
+                /* Fill remaining */
+                background: var(--cinema-bg);
+            }
+
+            .chat-header {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Watermark Animation */
+        .floating-watermark {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            /* Very subtle */
+            font-size: 0.9rem;
+            pointer-events: none;
+            z-index: 60;
+            white-space: nowrap;
+            /* text-shadow: 0 0 2px black; removed */
+            animation: moveWatermark 60s linear infinite alternate;
+            /* Slower */
+            user-select: none;
+        }
+
+        @keyframes moveWatermark {
+            0% {
+                top: 10%;
+                left: 5%;
+            }
+
+            25% {
+                top: 70%;
+                left: 80%;
+            }
+
+            50% {
+                top: 40%;
+                left: 20%;
+            }
+
+            75% {
+                top: 80%;
+                left: 60%;
+            }
+
+            100% {
+                top: 20%;
+                left: 90%;
+            }
+        }
+    </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script><link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <header class="main-header" style="height: 60px; padding: 0 1rem;">
+        <div class="header-right">
+            <button class="icon-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <h2 class="page-title" id="page-title">البث المباشر</h2>
+            <div id="live-indicator"
+                style="color:red; font-weight:bold; display:none; align-items:center; gap:5px; margin-right:10px;">
+                <i class="fas fa-circle fa-beat" style="font-size:0.8rem;"></i> LIVE
+            </div>
+        </div>
+    </header>
+
+    <div class="live-layout">
+        <!-- Video Column -->
+        <div class="video-section">
+            <div class="video-container" id="video-container">
+                <div id="player-wrapper" style="width:100%; height:100%;"></div>
+                <div class="floating-watermark" id="watermark-text"></div>
+                <div id="security-overlay"
+                    style="display:none; position:absolute; top:0; left:0; width:100%; height:85%; z-index:10; background:transparent; cursor:pointer;">
+                </div>
+            </div>
+            <div style="margin-top:10px; padding:0 5px;">
+                <h3 id="video-title"></h3>
+                <!-- Fallback -->
+                <a id="zoom-fallback" href="#" target="_blank" class="btn btn-secondary"
+                    style="display:none; margin-top:10px; align-items:center; gap:8px;">
+                    <i class="fas fa-external-link-alt"></i> فتح في Zoom
+                </a>
+            </div>
+        </div>
+
+        <!-- Chat Column -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <span><i class="fab fa-youtube" style="color:#ef4444;"></i> شات اليوتيوب (يتطلب تسجيل دخول)</span>
+            </div>
+            <!-- Native Youtube Chat Embed -->
+            <iframe id="chat-frame" class="chat-frame" frameborder="0" style="width:100%; height:100%;"></iframe>
+            <div id="no-chat-msg" style="display:none; padding:20px; text-align:center; color:#94a3b8;">
+                <i class="fas fa-comment-slash" style="font-size:2rem; margin-bottom:10px;"></i>
+                <p>الشات غير متوفر لهذا النوع من البث</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plyr -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+    <script type="module">
+        import { auth, db } from '../assets/js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Security
+        document.addEventListener('keyup', (e) => { if (e.key == 'PrintScreen') document.body.style.display = 'none'; });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const contentUrl = urlParams.get('url');
+        const title = urlParams.get('title') || 'بث مباشر';
+
+        document.getElementById('page-title').innerText = title;
+        document.getElementById('video-title').innerText = title;
+
+        // 1. Auth & Watermark
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const docSnap = await getDoc(doc(db, "students", user.uid));
+                const userData = docSnap.exists() ? docSnap.data() : { name: user.email };
+                // Removed Phone as requested, using UID substring for ID
+                const info = `${userData.name || 'Student'} (${user.uid.substring(0, 5)})`;
+                document.getElementById('watermark-text').innerText = info;
+            }
+        });
+
+        // 2. Player & Chat Logic
+        const wrapper = document.getElementById('player-wrapper');
+        const overlay = document.getElementById('security-overlay');
+        const chatFrame = document.getElementById('chat-frame');
+        const noChatMsg = document.getElementById('no-chat-msg');
+
+        let player;
+
+        if (contentUrl) {
+            const getYouTubeID = (url) => {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|live\/)([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            };
+
+            const ytId = getYouTubeID(contentUrl);
+
+            if (ytId) {
+                // A. YouTube Logic
+                document.getElementById('live-indicator').style.display = 'flex';
+                wrapper.innerHTML = `<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="${ytId}"></div>`;
+
+                // --- EMBED CHAT ---
+                // IMPORTANT: embed_domain must match current domain
+                const domain = window.location.hostname;
+                chatFrame.src = `https://www.youtube.com/live_chat?v=${ytId}&embed_domain=${domain}`;
+
+                player = new Plyr('#player', {
+                    controls: ['play-large', 'play', 'mute', 'volume', 'fullscreen'],
+                    youtube: { noCookie: true, rel: 0, showinfo: 0, modestbranding: 1, controls: 0 }
+                });
+
+                player.on('ready', event => {
+                    const container = event.detail.plyr.elements.container;
+                    overlay.style.display = 'block';
+                    container.appendChild(overlay);
+                    overlay.ondblclick = () => event.detail.plyr.toggleFullscreen();
+                    overlay.onclick = () => event.detail.plyr.togglePlay();
+                });
+
+                // Popout Logic Removed
+            } else {
+                // B. Zoom/Iframe Logic
+                let finalUrl = contentUrl;
+                if (contentUrl.includes('zoom.us')) {
+                    if (contentUrl.includes('?')) finalUrl = contentUrl.replace('/j/', '/wc/').replace('/s/', '/wc/').replace('?', '/join?');
+                    else finalUrl = contentUrl.replace('/j/', '/wc/').replace('/s/', '/wc/') + '/join';
+
+                    document.getElementById('zoom-fallback').style.display = 'inline-flex';
+                    document.getElementById('zoom-fallback').href = contentUrl;
+                }
+                wrapper.innerHTML = `<iframe src="${finalUrl}" class="zoom-frame" allow="camera; microphone; fullscreen; display-capture" allowfullscreen style="width:100%; height:100%; border:0;"></iframe>`;
+
+                // Hide Chat Frame for Non-Youtube
+                chatFrame.style.display = 'none';
+                noChatMsg.style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+

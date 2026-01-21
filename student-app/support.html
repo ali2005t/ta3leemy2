@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>الدعم والمساعدة</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/student-desktop.css">
+    <script type="module" src="../assets/js/student-common.js"></script>
+    <style>
+        /* Clean Mobile-First Styles */
+        body {
+            background: var(--app-bg, #f8fafc);
+            padding-bottom: 80px;
+            font-family: 'Tajawal', sans-serif;
+            color: var(--app-text, #334155);
+        }
+
+        h2,
+        h3,
+        h4 {
+            color: var(--app-text, #1e293b);
+        }
+
+        .app-header {
+            background: var(--app-card-bg, #ffffff);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 0 var(--app-border, rgba(0, 0, 0, 0.05));
+            color: var(--app-text, #1e293b);
+        }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--app-text, #1e293b);
+            margin: 0;
+        }
+
+        .ticket-card {
+            background: var(--app-card-bg, #ffffff);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--app-border, #f1f5f9);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .ticket-card:active {
+            transform: scale(0.98);
+        }
+
+        .ticket-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--app-text, #1e293b);
+            margin-bottom: 5px;
+        }
+
+        .ticket-subject {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: var(--app-text, #1e293b);
+        }
+
+        .ticket-date {
+            float: right;
+            color: var(--app-text-muted, #94a3b8);
+            font-size: 0.8rem;
+        }
+
+        .ticket-snippet {
+            color: var(--app-text-muted, #64748b);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .ticket-meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        .fab-add {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary, #6366f1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+            z-index: 90;
+            transition: transform 0.2s;
+        }
+
+        .fab-add:active {
+            transform: scale(0.9);
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--app-card-bg, #ffffff);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 1px solid var(--app-border, #f1f5f9);
+            z-index: 99;
+        }
+
+        .nav-item {
+            color: #94a3b8;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--primary, #6366f1);
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            font-size: 1.4rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--app-card-bg, #ffffff);
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            border-radius: 24px;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--app-text, #1e293b);
+            border: 1px solid var(--app-border, transparent);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Support Type Cards */
+        .support-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .support-type-card {
+            background: var(--app-bg, #f8fafc);
+            border: 1px solid var(--app-border, #e2e8f0);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .support-type-card:hover {
+            border-color: var(--primary, #6366f1);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .support-type-card i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary, #6366f1);
+        }
+
+        .support-type-card h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--app-text, #1e293b);
+        }
+
+        /* Form Inputs */
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--app-text-muted, #64748b);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--app-border, #cbd5e1);
+            outline: none;
+            background: var(--app-input-bg, #f8fafc);
+            color: var(--app-text, #1e293b);
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary, #6366f1);
+        }
+
+        .hide {
+            display: none;
+        }
+
+        /* Chat View */
+        .chat-view {
+            position: fixed;
+            inset: 0;
+            background: #f8fafc;
+            z-index: 300;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-view.active {
+            display: flex;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .msg-me {
+            align-self: flex-start;
+            background: white;
+            color: #1e293b;
+            border-bottom-right-radius: 4px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .msg-other {
+            align-self: flex-end;
+            background: var(--primary, #6366f1);
+            color: white;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-footer {
+            padding: 15px;
+            background: white;
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #f1f5f9;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 24px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* FAQ Styles */
+        .faq-card {
+            background: var(--app-card-bg, #ffffff);
+            border-radius: 12px;
+            border: 1px solid var(--app-border, #f1f5f9);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .faq-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--app-text, #1e293b);
+        }
+
+        .faq-header:hover {
+            background: rgba(99, 102, 241, 0.02);
+        }
+
+        .faq-body {
+            padding: 16px;
+            padding-top: 0;
+            color: var(--app-text-muted, #64748b);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            display: none;
+            border-top: 1px solid var(--app-border, #f1f5f9);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: var(--app-text-muted, #94a3b8);
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body>
+
+    <!-- Desktop Header / Title -->
+    <header class="app-header desktop-only" style="display:none;">
+        <div class="header-inner">
+            <div class="logo">الدعم والمساعدة</div>
+        </div>
+    </header>
+
+    <main class="app-content" style="padding-bottom: 80px;">
+        <h1 class="desktop-page-title" style="display:none;">الدعم والمساعدة</h1>
+
+        <div id="faq-container" style="display:flex; flex-direction:column; gap:8px;">
+            <!-- JS Generated -->
+            <div style="background:white; padding:12px; border-radius:8px; text-align:center; color:#94a3b8;">جاري
+                التحميل...</div>
+        </div>
+
+        <div style="padding: 16px 16px 5px;">
+            <h3 style="margin: 0; font-size: 1rem;">تذاكري</h3>
+        </div>
+
+        <div id="tickets-container">
+            <div class="empty-state">
+                <div style="font-size: 3rem; color: #e2e8f0; margin-bottom: 1rem;"><i class="fas fa-inbox"></i></div>
+                <p>لا توجد تذاكر حالياً</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab-add" id="open-new-ticket"><i class="fas fa-plus"></i></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="my-courses.html" class="nav-item">
+            <i class="fas fa-book-reader"></i>
+            <span>مشترياتي</span>
+        </a>
+        <a href="support.html" class="nav-item active">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <div class="modal" id="new-ticket-modal">
+        <div class="modal-content">
+
+            <!-- Step 1: Join Type -->
+            <div id="step-type-select">
+                <h3 style="margin-top:0; margin-bottom:10px; font-size:1.2rem; text-align:center;">نوع المساعدة؟</h3>
+                <p style="text-align:center; color:var(--app-text-muted); font-size:0.9rem; margin-bottom:20px;">اختر
+                    القسم المناسب لمشكلتك</p>
+
+                <div class="support-type-grid">
+                    <div class="support-type-card" onclick="selectSupportType('scientific')">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>دعم علمي</h4>
+                        <span
+                            style="font-size:0.7rem; color:var(--app-text-muted); display:block; margin-top:5px;">أسئلة
+                            للدرس/المعلم</span>
+                    </div>
+                    <div class="support-type-card" onclick="selectSupportType('technical')">
+                        <i class="fas fa-tools"></i>
+                        <h4>دعم فني</h4>
+                        <span
+                            style="font-size:0.7rem; color:var(--app-text-muted); display:block; margin-top:5px;">مشاكل
+                            المنصة/الحساب</span>
+                    </div>
+                </div>
+
+                <button id="close-modal-btn"
+                    style="width:100%; padding:12px; background:transparent; border:none; color:var(--app-text-muted); cursor:pointer;">إلغاء</button>
+            </div>
+
+            <!-- Step 2: Details Form -->
+            <div id="step-details" class="hide">
+                <div style="display:flex; align-items:center; margin-bottom:20px;">
+                    <i class="fas fa-arrow-right" onclick="backToTypeSelect()"
+                        style="cursor:pointer; padding:8px; color:var(--app-text-muted);"></i>
+                    <h3 style="margin:0; font-size:1.1rem; flex:1; text-align:center;" id="modal-title">تفاصيل التذكرة
+                    </h3>
+                    <div style="width:32px;"></div> <!-- Spacer -->
+                </div>
+
+                <div style="margin-bottom:15px;" id="teacher-select-container">
+                    <label class="form-label">المعلم</label>
+                    <select id="teacher-select" class="form-input">
+                        <option value="">جاري التحميل...</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom:20px;">
+                    <label class="form-label">عنوان المشكلة</label>
+                    <input type="text" id="ticket-title" class="form-input" placeholder="اكتب عنوان مختصر للمشكلة...">
+                </div>
+
+                <button id="create-ticket-btn"
+                    style="width:100%; padding:14px; border-radius:12px; border:none; background:var(--primary, #6366f1); color:white; font-weight:700; cursor:pointer; font-size:1rem; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);">
+                    إنشاء التذكرة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat View Screen -->
+    <div class="chat-view" id="chat-view">
+        <header class="app-header">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <i class="fas fa-arrow-right" id="close-chat"
+                    style="font-size:1.2rem; cursor:pointer; color:#64748b;"></i>
+                <div style="display:flex; flex-direction:column;">
+                    <h1 class="page-title" id="chat-page-title" style="font-size:1.1rem;">المحادثة</h1>
+                    <span style="font-size:0.75rem; color:#94a3b8;">الدعم الفني</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-body" id="student-chat-body">
+            <!-- Messages will be injected here -->
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="student-chat-input" class="chat-input" placeholder="اكتب رسالتك هنا...">
+            <button id="student-send-btn"
+                style="width:48px; height:48px; flex-shrink:0; border-radius:50%; background:var(--primary, #6366f1); color:white; border:none; font-size:1.1rem; cursor:pointer; box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);"><i
+                    class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/theme-loader.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+    <script type="module" src="../assets/js/support-student.js"></script>
+    <!-- SweetAlert2 for nicer inputs -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
+

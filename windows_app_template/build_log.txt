@@ -1,0 +1,28 @@
+Package screen_retriever:windows references screen_retriever_windows:windows as the default plugin, but the package does not exist, or is not a plugin package.
+Ask the maintainers of screen_retriever to either avoid referencing a default implementation via `platforms: windows: default_package: screen_retriever_windows` or create a plugin named screen_retriever_windows.
+
+Package screen_retriever:windows references screen_retriever_windows:windows as the default plugin, but the package does not exist, or is not a plugin package.
+Ask the maintainers of screen_retriever to either avoid referencing a default implementation via `platforms: windows: default_package: screen_retriever_windows` or create a plugin named screen_retriever_windows.
+
+Building Windows application...                                 
+lib/main.dart(2,8): error GFAA2A68C: Error when reading '/C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/window_manager-0.5.1/lib/window_manager.dart': The system cannot find the path specified [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(2,8): error GFAA2A68C: Error when reading '/C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/webview_windows-0.4.0/lib/webview_windows.dart': The system cannot find the path specified [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(125,10): error G5FE39F1E: Type 'WebviewPermissionDecision' not found. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(126,19): error G5FE39F1E: Type 'WebviewPermissionKind' not found. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(13,23): error G311314CC: Method not found: 'WebviewController'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(10,9): error GC9768DF9: Undefined name 'windowManager'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(12,3): error G3D328FDC: 'WindowOptions' isn't a type. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(18,20): error GC9768DF9: Undefined name 'TitleBarStyle'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(12,39): error GF7CA4DBF: Couldn't find constructor 'WindowOptions'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(22,11): error GC9768DF9: Undefined name 'windowManager'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(23,11): error GC9768DF9: Undefined name 'windowManager'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/main.dart(21,3): error GC9768DF9: Undefined name 'windowManager'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(110,30): error GE5CFE876: The method 'Webview' isn't defined for the type '_LandingScreenState'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(126,19): error GE727CA64: 'WebviewPermissionKind' isn't a type. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(127,39): error G809DD2D4: 'WebviewPermissionDecision' isn't a type. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(136,40): error G4127D1E8: The getter 'WebviewPermissionDecision' isn't defined for the type '_LandingScreenState'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(141,40): error G4127D1E8: The getter 'WebviewPermissionDecision' isn't defined for the type '_LandingScreenState'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/landing_screen.dart(148,24): error G4127D1E8: The getter 'WebviewPermissionDecision' isn't defined for the type '_LandingScreenState'. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+G:\vs\MSBuild\Microsoft\VC\v180\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'G:\edu acdemy\windows_app_template\build\windows\x64\CMakeFiles\8b954ce7a3a322d83130dc676e5f0532\flutter_windows.dll.rule;G:\edu acdemy\windows_app_template\build\windows\x64\CMakeFiles\73ddd5b7bb6ab3707bf005c2ee79bbff\flutter_assemble.rule' exited with code 1. [G:\edu acdemy\windows_app_template\build\windows\x64\flutter\flutter_assemble.vcxproj]
+Building Windows application...                                    12.6s
+Build process failed.

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإشعارات - Ta3leemy Teacher</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">إدارة الإشعارات</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Tabs -->
+                <div class="tabs-container"
+                    style="display:flex; gap:10px; margin-bottom:2rem; border-bottom:1px solid #334155;">
+                    <button class="tab-btn active" onclick="switchTab('inbox')" id="tab-inbox"
+                        style="padding:10px 20px; background:transparent; border:none; color:white; border-bottom:2px solid #6366f1; cursor:pointer; font-weight:bold;">
+                        <i class="fas fa-inbox"></i> الوارد (من الإدارة)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('sent')" id="tab-sent"
+                        style="padding:10px 20px; background:transparent; border:none; color:#94a3b8; border-bottom:2px solid transparent; cursor:pointer; font-weight:bold;">
+                        <i class="fas fa-paper-plane"></i> المرسل (للطلاب)
+                    </button>
+                </div>
+
+                <!-- Inbox Section -->
+                <div id="section-inbox" class="content-section">
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3 style="margin:0;">إشعارات الإدارة</h3>
+                        </div>
+                        <div class="table-container">
+                            <div id="inbox-list" style="display:flex; flex-direction:column;">
+                                <!-- JS Loaded -->
+                                <div style="padding:2rem; text-align:center; color:#64748b;">
+                                    <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sent Section (Existing) -->
+                <div id="section-sent" class="content-section" style="display:none;">
+                    <!-- Send New Notification -->
+                    <div class="content-card" style="margin-bottom:2rem;">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3 style="margin:0;">إرسال إشعار جديد</h3>
+                            <p style="color:#64748b;">قم بإرسال تنبيهات لطلابك لإبقائهم على اطلاع.</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" style="margin-bottom:1.5rem;">
+                                <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">عنوان الإشعار</label>
+                                <input type="text" id="notif-title" class="form-input"
+                                    placeholder="مثال: محاضرة جديدة، تنبيه هام..."
+                                    style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom:1.5rem;">
+                                <label style="display:block; margin-bottom:0.5rem; color:#94a3b8;">نص الرسالة</label>
+                                <textarea id="notif-body" class="form-input" rows="3"
+                                    placeholder="اكتب رسالتك الجذابة هنا..."
+                                    style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px; resize:vertical;"></textarea>
+                            </div>
+                            <button id="send-btn" class="btn"
+                                style="background:#6366f1; color:white; border:none; padding:12px 30px; border-radius:8px; font-weight:bold; cursor:pointer;">
+                                <i class="fas fa-paper-plane"></i> إرسال الإشعار
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- History -->
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3 style="margin:0;">سجل الإشعارات المرسلة</h3>
+                                <button id="teacher-delete-all-btn" onclick="deleteAllNotifications()"
+                                    style="display:none; background:#ef4444; color:white; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:0.9rem;">
+                                    <i class="fas fa-trash-alt"></i> حذف الكل
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>العنوان</th>
+                                        <th>النص</th>
+                                        <th>تاريخ الإرسال</th>
+                                        <th>الحالة</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-list">
+                                    <tr>
+                                        <td colspan="4" style="text-align:center; padding:20px;">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js?v=9.0';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+        import { auth, db } from '../assets/js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { collection, addDoc, query, where, getDocs, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initHeader } from '../assets/js/header-manager.js';
+        import { getEffectiveUserUid } from '../assets/js/impersonation-manager.js';
+        import { PushService } from '../assets/js/push-service.js?v=4.0';
+
+        let currentUid = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                initHeader(user);
+                currentUid = await getEffectiveUserUid(user);
+                if (currentUid) {
+                    loadInbox();
+                    loadHistory();
+                }
+            } else {
+                window.location.href = '../auth/login.html';
+            }
+        });
+
+        // Toggle Tabs
+        window.switchTab = (tabName) => {
+            // Reset
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.style.color = '#94a3b8';
+                b.style.borderBottomColor = 'transparent';
+                b.classList.remove('active');
+            });
+            document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+
+            // Activate
+            const btn = document.getElementById(`tab-${tabName}`);
+            const section = document.getElementById(`section-${tabName}`);
+
+            if (btn) {
+                btn.classList.add('active');
+                btn.style.color = 'white';
+                btn.style.borderBottomColor = '#6366f1';
+            }
+            if (section) section.style.display = 'block';
+        };
+
+        // Load Inbox (Admin Messages)
+        async function loadInbox() {
+            const container = document.getElementById('inbox-list');
+            if (!container) return;
+
+            try {
+                const q = query(
+                    collection(db, "notifications"),
+                    where("target", "in", ["all", "all_teachers", currentUid]),
+                    orderBy("createdAt", "desc")
+                );
+
+                const snap = await getDocs(q);
+                container.innerHTML = '';
+
+                if (snap.empty) {
+                    container.innerHTML = `
+                        <div style="padding:4rem; text-align:center; opacity:0.6;">
+                            <i class="fas fa-inbox fa-3x" style="margin-bottom:1rem;"></i>
+                            <p>صندوق الوارد فارغ</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                snap.forEach(doc => {
+                    const n = doc.data();
+                    const date = n.createdAt ? new Date(n.createdAt.seconds * 1000).toLocaleString('ar-EG') : '-';
+                    const icon = n.sender === 'admin' ? '<i class="fas fa-crown" style="color:#f59e0b;"></i>' : '<i class="fas fa-bell"></i>';
+
+                    container.innerHTML += `
+                        <div style="background:#0f172a; padding:1.5rem; border-radius:8px; margin-bottom:1rem; border:1px solid #334155; position:relative;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <h4 style="margin:0; font-size:1.1rem; color:white;">${icon} ${n.title}</h4>
+                                <span style="font-size:0.8rem; color:#94a3b8;">${date}</span>
+                            </div>
+                            <p style="color:#cbd5e1; line-height:1.6; margin:0;">${n.body}</p>
+                        </div>
+                    `;
+                });
+
+            } catch (e) {
+                console.error(e);
+                // Fallback for missing index
+                if (e.code === 'failed-precondition') {
+                    console.log("Retry without OrderBy");
+                    const q2 = query(collection(db, "notifications"), where("target", "in", ["all", "all_teachers", currentUid]));
+                    // ... reuse render logic ...
+                }
+                container.innerHTML = '<p style="padding:20px; color:red; text-align:center;">حدث خطأ في تحميل الرسائل</p>';
+            }
+        }
+
+        // Send Logic
+        document.getElementById('send-btn').onclick = async () => {
+            const title = document.getElementById('notif-title').value;
+            const body = document.getElementById('notif-body').value;
+            const btn = document.getElementById('send-btn');
+
+            if (!title || !body) return UIManager.showToast('يرجى ملء جميع الحقول', 'warning');
+
+            btn.disabled = true;
+            btn.innerHTML = 'جاري الإرسال...';
+
+            try {
+                await addDoc(collection(db, "notifications"), {
+                    title: title,
+                    body: body,
+                    teacherId: currentUid,
+                    target: 'all_students',
+                    createdAt: serverTimestamp(),
+                    isRead: false
+                });
+
+                // --- TRIGGER PUSH NOTIFICATION (BACKGROUND) ---
+                try {
+                    console.log("Triggering Push...");
+                    const pushResult = await PushService.sendToTeacherStudents(currentUid, title, body);
+
+                    if (!pushResult || !pushResult.success) {
+                        const err = pushResult?.error || 'Unknown Error';
+                        alert("تم الحفظ، ولكن فشل الإشعار: " + err);
+                    } else {
+                        alert('تم الحفظ وإرسال الإشعار بنجاح! 🚀');
+                    }
+
+                } catch (pushErr) {
+                    console.error("Push Failed:", pushErr);
+                    alert("خطأ غير متوقع: " + pushErr.message);
+                }
+                // ----------------------------------------------
+
+                document.getElementById('notif-title').value = '';
+                document.getElementById('notif-body').value = '';
+                loadHistory();
+
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء الإرسال');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال الإشعار';
+            }
+        };
+
+        // Load History
+        async function loadHistory() {
+            try {
+                const q = query(
+                    collection(db, "notifications"),
+                    where("teacherId", "==", currentUid),
+                    orderBy("createdAt", "desc")
+                );
+                const snap = await getDocs(q);
+                const tbody = document.getElementById('history-list');
+                const deleteAllBtn = document.getElementById('teacher-delete-all-btn');
+
+                tbody.innerHTML = '';
+
+                if (snap.empty) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px;">لا توجد إشعارات سابقة</td></tr>';
+                    if (deleteAllBtn) deleteAllBtn.style.display = 'none';
+                    return;
+                }
+
+                if (deleteAllBtn) deleteAllBtn.style.display = 'block';
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleString('ar-EG') : '-';
+
+                    const row = `
+                        <tr>
+                            <td style="font-weight:bold;">${data.title}</td>
+                            <td>${data.body}</td>
+                            <td>${date}</td>
+                            <td>
+                                <span class="badge" style="background:#10b981; color:white; padding:2px 8px; border-radius:4px;">تم الإرسال</span>
+                                <button onclick="deleteNotification('${doc.id}')" style="background:none; border:none; color:#ef4444; cursor:pointer; margin-right:10px;" title="حذف">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            } catch (e) {
+                console.error("Error loading history:", e);
+            }
+        }
+
+        // Delete Logic
+        import { deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        window.deleteNotification = async (id) => {
+            if (!confirm("هل أنت متأكد من حذف هذا الإشعار من السجل؟")) return;
+            try {
+                await deleteDoc(doc(db, "notifications", id));
+                loadHistory(); // Refresh
+            } catch (e) {
+                console.error("Delete failed", e);
+                alert("فشل الحذف");
+            }
+        };
+
+        window.deleteAllNotifications = async () => {
+            if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف كافة إشعاراتك؟")) return;
+
+            const btn = document.getElementById('teacher-delete-all-btn');
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                const q = query(
+                    collection(db, "notifications"),
+                    where("teacherId", "==", currentUid)
+                );
+                const snapshot = await getDocs(q);
+                const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+                await Promise.all(deletePromises);
+
+                alert("تم حذف السجل بنجاح");
+                loadHistory();
+
+            } catch (e) {
+                console.error(e);
+                alert("فشل حذف الكل");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            }
+        };
+
+
+
+        // Scripts from global-ui handle toggles now.
+
+    </script>
+</body>
+
+</html>

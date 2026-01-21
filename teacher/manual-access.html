@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فتح المحتوى للطالب - Ta3leemy</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .access-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .light-theme .access-card {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-theme .access-card h3 {
+            color: #1e293b !important;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .light-theme .search-results {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #334155 !important;
+        }
+
+        .light-theme .search-item:hover {
+            background: #f1f5f9 !important;
+        }
+
+        .search-item {
+            padding: 10px;
+            border-bottom: 1px solid #334155;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-item:hover {
+            background: #334155;
+        }
+
+        .selected-badge {
+            background: #3b82f6;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .light-theme .form-select {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">إضافة صلاحيات يدوية</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <div class="access-card">
+                    <h3><i class="fas fa-user-graduate"></i> 1. اختر الطالب</h3>
+                    <div class="search-container">
+                        <input type="text" id="student-search" class="form-input"
+                            placeholder="ابحث بالاسم أو البريد الإلكتروني...">
+                        <div id="search-results" class="search-results"></div>
+                        <div id="selected-student-container"></div>
+                    </div>
+                </div>
+
+                <div class="access-card" id="course-section" style="opacity:0.5; pointer-events:none;">
+                    <h3><i class="fas fa-book"></i> 2. اختر المحتوى</h3>
+
+                    <label class="form-label">البرنامج التدريبي (Training
+                        Program)</label>
+                    <select id="program-select" class="form-select">
+                        <option value="">اختر البرنامج...</option>
+                    </select>
+
+                    <div id="unit-selection" style="display:none;">
+                        <label class="form-label">التيرم / الكورس (Unit)</label>
+                        <select id="unit-select" class="form-select">
+                            <option value="all">-- كامل البرنامج (Full Access) --</option>
+                        </select>
+                    </div>
+
+                    <div id="lecture-selection" style="display:none; margin-top:10px;">
+                        <label class="form-label">محاضرة معينة (Lecture) -
+                            اختياري</label>
+                        <select id="lecture-select" class="form-select">
+                            <option value="all_unit">-- كامل الكورس (All Lectures in Unit) --</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <button id="grant-btn" class="btn btn-primary"
+                style="width:100%; padding:15px; font-size:1.1rem; opacity:0.5; pointer-events:none;">
+                <i class="fas fa-check-circle"></i> منح الصلاحية
+            </button>
+
+            <style>
+                /* Helper for label colors */
+                .form-label {
+                    color: #94a3b8;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+                .light-theme .form-label {
+                    color: #475569 !important;
+                }
+            </style>
+
+    </div>
+    </main>
+    </div>
+
+    <div id="toast" class="toast">تمت العملية بنجاح!</div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/ui-manager.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+    <script type="module" src="../assets/js/teacher/manual-access.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

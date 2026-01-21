@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تفاصيل الدورة</title>
+
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="../assets/css/student-desktop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script type="module" src="../assets/js/student-common.js"></script>
+    <style>
+        .training-header {
+            background: linear-gradient(135deg, var(--app-primary, #6366f1) 0%, #4338ca 100%);
+            color: white;
+            padding: 40px 20px 30px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .training-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 15px;
+            object-fit: cover;
+        }
+
+        .training-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .training-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: 1px solid #f1f5f9;
+        }
+
+        .course-card:active {
+            transform: scale(0.98);
+        }
+
+        .course-icon {
+            width: 50px;
+            height: 50px;
+            background: #e0e7ff;
+            color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* New Tabs Styles */
+        .tabs-header {
+            background: white;
+            padding: 5px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 15px;
+        }
+
+        .tabs-scroller {
+            display: flex;
+            overflow-x: auto;
+            gap: 5px;
+            padding: 0 10px;
+            scrollbar-width: none;
+        }
+
+        .tabs-scroller::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 10px;
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .tab-btn.active {
+            color: var(--app-primary, #6366f1);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 5px;
+            right: 5px;
+            height: 3px;
+            background: var(--app-primary, #6366f1);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+    </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script><link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body>
+
+    <header class="app-header" style="background:white; height:60px; display:flex; align-items:center; padding:0 15px;">
+        <button onclick="window.history.back()"
+            style="background:none; border:none; color:#1e293b; font-size:1.1rem; cursor:pointer;">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        <span style="flex:1; text-align:center; font-weight:bold; color:#1e293b;">التفاصيل</span>
+        <div style="width:20px;"></div>
+    </header>
+
+    <main class="app-content" style="padding: 0; padding-bottom: 80px;">
+
+        <!-- Header -->
+        <div id="training-header-container" class="training-header" style="display:none;">
+            <img id="header-image" class="training-image" src="">
+            <h1 id="header-title" class="training-title"></h1>
+            <p id="header-desc" class="training-desc"></p>
+        </div>
+
+        <!-- TABS HEADER -->
+        <div class="tabs-header">
+            <div class="tabs-scroller">
+                <button class="tab-btn active" data-target="courses"><i class="fas fa-boxes"></i> الوحدات
+                    (الكورسات)</button>
+                <button class="tab-btn" data-target="lectures"><i class="fas fa-video"></i> المحاضرات</button>
+                <button class="tab-btn" data-target="exams"><i class="fas fa-clipboard-check"></i> الامتحانات</button>
+                <button class="tab-btn" data-target="files"><i class="fas fa-file-pdf"></i> الكتب</button>
+                <button class="tab-btn" data-target="live"><i class="fas fa-broadcast-tower"></i> اللايفات</button>
+            </div>
+        </div>
+
+        <div style="padding: 0 20px;">
+
+            <!-- Tab: Courses -->
+            <div id="tab-courses" class="tab-pane active">
+                <h3 style="margin-bottom: 15px; color:#1e293b;">محتويات الدورة</h3>
+                <div id="courses-list">
+                    <div style="text-align:center; padding: 2rem; color: #94a3b8;">
+                        <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Tabs (Placeholders) -->
+            <div id="tab-lectures" class="tab-pane">
+                <div style="text-align:center; padding:3rem; color:#94a3b8;">
+                    <i class="fas fa-video-slash" style="font-size:2rem; margin-bottom:10px; opacity:0.5;"></i>
+                    <p>لا توجد محاضرات مجمعة هنا</p>
+                </div>
+            </div>
+            <div id="tab-exams" class="tab-pane">
+                <div style="text-align:center; padding:3rem; color:#94a3b8;">
+                    <i class="fas fa-clipboard-list" style="font-size:2rem; margin-bottom:10px; opacity:0.5;"></i>
+                    <p>لا توجد امتحانات مجمعة هنا</p>
+                </div>
+            </div>
+            <div id="tab-files" class="tab-pane">
+                <div style="text-align:center; padding:3rem; color:#94a3b8;">
+                    <i class="fas fa-folder-open" style="font-size:2rem; margin-bottom:10px; opacity:0.5;"></i>
+                    <p>لا توجد ملفات مجمعة هنا</p>
+                </div>
+            </div>
+            <div id="tab-live" class="tab-pane">
+                <div style="text-align:center; padding:3rem; color:#94a3b8;">
+                    <i class="fas fa-satellite-dish" style="font-size:2rem; margin-bottom:10px; opacity:0.5;"></i>
+                    <p>لا توجد لايفات حالياً</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="my-courses.html" class="nav-item">
+            <i class="fas fa-book-reader"></i>
+            <span>مشترياتي</span>
+        </a>
+        <a href="support.html" class="nav-item">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/training-view.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+
+</body>
+
+</html>
+

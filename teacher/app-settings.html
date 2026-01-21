@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجهيز التطبيق - Ta3leemy</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/app-settings.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned">
+                <div class="header-right">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer; margin-left:10px;"><i
+                            class="fas fa-bars"></i></button>
+                    <h2 class="header-title">تخصيص التطبيق والمنصة</h2>
+                </div>
+                <div class="header-left">
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Status View (For Pending/Completed cards) -->
+                <div id="status-view" style="display:none; text-align:center;"></div>
+
+                <!-- Settings Form View -->
+                <div id="settings-view">
+                    <div class="app-settings-grid">
+
+                        <!-- Settings Column -->
+                        <div>
+                            <!-- App Name Card -->
+                            <div class="card app-settings-card">
+                                <h3><i class="fas fa-signature"></i> اسم التطبيق</h3>
+                                <p>اسم تطبيقك كما سيظهر للطلاب.</p>
+                                <input type="text" id="app-name-input" class="form-input full-width custom-input-dark"
+                                    placeholder="مثال: أكاديمية النجاح" oninput="updateAppName(this.value)">
+                            </div>
+
+                            <div class="card app-settings-card">
+                                <h3><i class="fas fa-palette"></i> ألوان الهوية
+                                </h3>
+                                <p>اختر اللون الرئيسي لتطبيقك. سيظهر هذا اللون
+                                    في الأزرار، الرأس، والعناصر التفاعلية.</p>
+
+                                <div class="color-picker-container">
+                                    <div class="color-picker-item active" data-color="#6366f1"
+                                        style="background-color: #6366f1;" onclick="setBrandColor('#6366f1', this)">
+                                    </div>
+                                    <!-- Indigo -->
+                                    <div class="color-picker-item" data-color="#3b82f6"
+                                        style="background-color: #3b82f6;" onclick="setBrandColor('#3b82f6', this)">
+                                    </div> <!-- Blue -->
+                                    <div class="color-picker-item" data-color="#f43f5e"
+                                        style="background-color: #f43f5e;" onclick="setBrandColor('#f43f5e', this)">
+                                    </div> <!-- Rose -->
+                                    <div class="color-picker-item" data-color="#10b981"
+                                        style="background-color: #10b981;" onclick="setBrandColor('#10b981', this)">
+                                    </div> <!-- Emerald -->
+                                    <div class="color-picker-item" data-color="#f59e0b"
+                                        style="background-color: #f59e0b;" onclick="setBrandColor('#f59e0b', this)">
+                                    </div> <!-- Amber -->
+                                    <div class="color-picker-item" data-color="#8b5cf6"
+                                        style="background-color: #8b5cf6;" onclick="setBrandColor('#8b5cf6', this)">
+                                    </div> <!-- Purple -->
+                                    <div class="color-picker-item" data-color="#0f172a"
+                                        style="background-color: #0f172a;" onclick="setBrandColor('#0f172a', this)">
+                                    </div> <!-- Dark -->
+
+                                    <!-- Custom Color Picker -->
+                                    <label class="color-picker-item custom-color-wrapper">
+                                        <input type="color" id="custom-color-input" class="hidden-color-input"
+                                            oninput="setBrandColor(this.value, this.parentElement)">
+                                        <i class="fas fa-plus custom-plus-icon"></i>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="card app-settings-card">
+                                <h3><i class="fas fa-image"></i> شعار التطبيق
+                                    (Logo)</h3>
+
+                                <div class="logo-upload-area"
+                                    onclick="document.getElementById('app-logo-upload').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>اضغط لرفع الشعار</p>
+                                    <p>يفضل أن يكون PNG بخلفية شفافة</p>
+                                </div>
+                                <input type="file" id="app-logo-upload" hidden accept="image/*"
+                                    onchange="previewLogo(event)">
+
+                                <!-- Landing Layout Selector -->
+                                <div class="card app-settings-card">
+                                    <h3><i class="fas fa-columns"></i> تصميم الصفحة الرئيسية</h3>
+                                    <p>اختر شكل واجهة الموقع التي يراها الزوار.</p>
+
+                                    <div class="layout-selector-grid"
+                                        style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:20px;">
+                                        <div class="layout-option active" data-layout="v1"
+                                            onclick="selectLayout('v1', this)"
+                                            style="border:2px solid var(--accent-color); padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:#0f172a; height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>فخم (داكن)</span>
+                                        </div>
+                                        <div class="layout-option" data-layout="v2" onclick="selectLayout('v2', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:#ffffff; height:60px; border-radius:5px; margin-bottom:5px; border:1px solid #eee;">
+                                            </div>
+                                            <span>أكاديمي (فاتح)</span>
+                                        </div>
+                                        <div class="layout-option" data-layout="v3" onclick="selectLayout('v3', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:linear-gradient(45deg, #4f46e5, #ec4899); height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>إبداعي (جريء)</span>
+                                        </div>
+
+                                        <!-- v7: Sunset/Vibrant -->
+                                        <div class="layout-option" data-layout="v7" onclick="selectLayout('v7', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:linear-gradient(to right, #f97316, #db2777); height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>حيوي (Sunset)</span>
+                                        </div>
+
+                                        <!-- v8: Ocean -->
+                                        <div class="layout-option" data-layout="v8" onclick="selectLayout('v8', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:linear-gradient(to right, #0ea5e9, #0f2c40); height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>محيط (Ocean)</span>
+                                        </div>
+
+                                        <!-- v9: Forest -->
+                                        <div class="layout-option" data-layout="v9" onclick="selectLayout('v9', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:linear-gradient(to right, #052e16, #fbbf24); height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>غابة (Forest)</span>
+                                        </div>
+
+                                        <!-- v10: Midnight -->
+                                        <div class="layout-option" data-layout="v10" onclick="selectLayout('v10', this)"
+                                            style="border:1px solid #334155; padding:10px; border-radius:10px; cursor:pointer; text-align:center;">
+                                            <div
+                                                style="background:#000; border:1px solid #d4af37; height:60px; border-radius:5px; margin-bottom:5px;">
+                                            </div>
+                                            <span>ملكي (Midnight)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="save-settings-section">
+                                    <button class="btn btn-primary full-width" onclick="saveAppSettings()">
+                                        <i class="fas fa-save"></i> حفظ التغييرات
+                                    </button>
+                                    <p>
+                                        سيتم تطبيق التغييرات فوراً.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview Column -->
+                        <div class="preview-column">
+                            <div class="device-preview-container">
+                                <h4>معاينة حية</h4>
+
+                                <div class="device-preview">
+                                    <div class="phone-case-glow"></div>
+                                    <div class="phone-notch-island"></div>
+                                    <div class="phone-buttons-right"></div>
+                                    <div class="phone-buttons-left"></div>
+
+                                    <div class="screen-content">
+                                        <!-- Status Bar -->
+                                        <div class="status-bar">
+                                            <div class="time">9:41</div>
+                                            <div class="icons">
+                                                <i class="fas fa-signal"></i>
+                                                <i class="fas fa-wifi"></i>
+                                                <i class="fas fa-battery-full"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- App Header (White with Brand Text) -->
+                                        <div class="preview-header-white">
+                                            <div class="header-brand-text brand-color-text" id="preview-header-name">اسم
+                                                المنصة</div>
+                                            <div class="header-notif">
+                                                <i class="fas fa-bell"></i>
+                                                <span class="red-dot"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Welcome Screen Body -->
+                                        <div class="preview-welcome-body">
+                                            <!-- The White Card -->
+                                            <div class="preview-welcome-card">
+                                                <div class="preview-logo-circle">
+                                                    <img src="../assets/images/logo.png"
+                                                        id="preview-logo-img" alt="Logo">
+                                                </div>
+                                                <h2 id="preview-app-name-card" class="preview-app-title">اسم المنصة</h2>
+                                                <p class="preview-app-subtitle">اضغط للدخول إلى المناهج</p>
+
+                                                <button class="preview-action-btn brand-gradient-bg">
+                                                    تصفح المحتوى <i class="fas fa-arrow-left"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Bottom Nav -->
+                                        <div class="app-bottom-nav">
+                                            <div class="app-bottom-nav-inner">
+                                                <div class="nav-item active">
+                                                    <i class="fas fa-home"></i>
+                                                    <span>الرئيسية</span>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <i class="fas fa-shopping-bag"></i>
+                                                    <span>مشترياتي</span>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <i class="fas fa-headset"></i>
+                                                    <span>الدعم</span>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <i class="fas fa-user"></i>
+                                                    <span>حسابي</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </main>
+    </div>
+
+    <!-- Upgrade Wall Modal -->
+    <div id="upgrade-wall" class="upgrade-wall">
+        <div class="upgrade-card">
+            <div class="upgrade-icon">🚀</div>
+            <h2>ميزة حصرية للباقات المتقدمة</h2>
+            <p>
+                ميزة "تطبيقك الخاص" متاحة فقط في باقة <strong>الاحترافية (Pro)</strong> وما فوق.<br>
+                احصل على تطبيقك الخاص باسمك وشعارك على Google Play و App Store.
+            </p>
+            <button class="btn btn-primary full-width upgrade-button"
+                onclick="window.location.href='subscriptions.html'">
+                ترقية الباقة الآن
+            </button>
+            <button class="btn btn-secondary full-width back-button" onclick="history.back()">
+                العودة للخلف
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/ui-manager.js"></script>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+    <script type="module" src="../assets/js/app-settings.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

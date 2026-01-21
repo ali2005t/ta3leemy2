@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الدومينات - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <div class="content-card">
+                    <div
+                        style="padding: 1.5rem; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2 style="margin: 0; color: white; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-globe" style="color: #38bdf8;"></i> طلبات الدومينات الخاصة
+                            </h2>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.9rem;">إدارة وربط الدومينات
+                                الخارجية للمعلمين</p>
+                        </div>
+                        <button onclick="loadDomains()" class="btn-sm"
+                            style="background:#334155; color:#cbd5e1; border:none; padding:8px 15px; border-radius:6px; cursor:pointer;">
+                            <i class="fas fa-sync-alt"></i> تحديث
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>المعلم</th>
+                                    <th>الدومين المطلوب</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="domains-table-body">
+                                <tr>
+                                    <td colspan="5" style="text-align:center; padding:2rem;">جاري التحميل...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/ui-manager.js"></script>
+    <script type="module" src="../assets/js/admin/admin-domains.js"></script>
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('الدومينات'));
+    </script>
+</body>
+
+</html>

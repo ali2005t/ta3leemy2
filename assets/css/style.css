@@ -1,0 +1,405 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Colors */
+    --primary-color: #0F172A;
+    /* Slate 900 */
+    --primary-light: #1E293B;
+    /* Slate 800 */
+    --accent-color: #F59E0B;
+    /* Amber 500 */
+    --accent-glow: #fbbf24;
+    --text-color: #F8FAFC;
+    /* Slate 50 */
+    --text-muted: #94A3B8;
+    /* Slate 400 */
+    --bg-color: #020617;
+    /* Slate 950 */
+    --success-color: #10B981;
+    --danger-color: #EF4444;
+
+    /* Spacing */
+    --container-padding: 2rem;
+    --border-radius: 16px;
+    --card-radius: 20px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Pull Cord Theme Toggle --- */
+.pull-cord {
+    position: fixed;
+    top: 85px;
+    /* Safely below header */
+    left: 40px;
+    /* Reverted to LEFT as requested */
+    right: auto;
+    /* Reset right */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
+    /* Below Dropdowns (1000) but above content */
+    /* High but below transition overlay */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hover effect: slight pull */
+.pull-cord:hover {
+    transform: translateY(10px);
+}
+
+/* Active Pull (via JS Class) */
+.pull-cord.pulled {
+    transform: translateY(50px);
+}
+
+.cord-line {
+    width: 2px;
+    height: 80px;
+    /* Slightly shorter line */
+    background: linear-gradient(to bottom, #475569 0%, #cbd5e1 100%);
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.cord-handle {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, #f8fafc, #94a3b8);
+    border-radius: 50%;
+    margin-top: -2px;
+    /* Connect to line */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+/* Highlight handle in active mode (optional) */
+.light-theme .cord-handle {
+    background: radial-gradient(circle at 30% 30%, #fef3c7, #f59e0b);
+    /* Amber Gold glow */
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6), inset -2px -2px 4px rgba(180, 83, 9, 0.3);
+}
+
+/* Animation for the "Flash" effect if we used CSS classes, 
+   but we are using JS overlays mostly. 
+   We can add a subtle swing animation to the cord. */
+
+@keyframes cordSwing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(-3deg);
+    }
+
+    75% {
+        transform: rotate(1deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.pull-cord {
+    transform-origin: top center;
+    /* animation: cordSwing 3s ease-in-out infinite; */
+}
+
+/* Light Theme Overrides - High Contrast */
+.light-theme {
+    --bg-color: #f8fafc !important;
+    /* Slate 50 */
+    --text-color: #020617 !important;
+    /* Slate 950 (Almost Black) */
+    --primary-light: #ffffff !important;
+    /* Pure White */
+    --sidebar-bg: #ffffff !important;
+    /* Pure White */
+    --text-muted: #334155 !important;
+    /* Slate 700 (Darker Grey) */
+    --border-color: #cbd5e1 !important;
+    /* Slate 300 (Clearly visible border) */
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Force light constraints on critical layout elements */
+body.light-theme {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Sidebar Specifics */
+.light-theme .sidebar {
+    background: var(--sidebar-bg) !important;
+    border-left: 2px solid var(--border-color) !important;
+    /* Thicker border */
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-theme .sidebar-header {
+    border-bottom: 2px solid var(--border-color) !important;
+    background: #ffffff !important;
+}
+
+.light-theme .sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+}
+
+/* Menu Items */
+.light-theme .menu-item {
+    color: var(--text-muted) !important;
+    border-bottom: 1px solid transparent;
+    /* Prevent jump on hover */
+}
+
+.light-theme .menu-item:hover {
+    background: #f1f5f9 !important;
+    /* Slate 100 */
+    color: #0f172a !important;
+    /* Slate 900 */
+}
+
+.light-theme .menu-item.active {
+    background: #e0f2fe !important;
+    /* Sky 100 */
+    color: #0284c7 !important;
+    /* Sky 600 */
+    border-right: 4px solid #0284c7 !important;
+}
+
+.light-theme .menu-item i {
+    color: inherit !important;
+}
+
+/* Top Bar / Header */
+.light-theme .top-bar,
+.light-theme .top-bar-redesigned,
+.light-theme header {
+    background: #ffffff !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    box-shadow: var(--card-shadow) !important;
+}
+
+.light-theme h1,
+.light-theme h2,
+.light-theme h3,
+.light-theme h4,
+.light-theme h5,
+.light-theme h6 {
+    color: #0f172a !important;
+}
+
+/* Force ALL text in light mode to be dark if not explicitly overridden */
+.light-theme p,
+.light-theme span,
+.light-theme div,
+.light-theme label,
+.light-theme li,
+.light-theme i {
+    color: inherit;
+}
+
+/* Exceptions: Elements that should stay light or have specific colors */
+.light-theme .btn-primary,
+.light-theme .badge,
+.light-theme .active i {
+    /* Keep original colors for these */
+    color: initial;
+}
+
+/* Specific Fix for Tables */
+.light-theme table {
+    color: #0f172a !important;
+}
+
+.light-theme th {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+}
+
+.light-theme td {
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* Specific Fix for Search Bars / Inputs */
+.light-theme .search-bar input,
+.light-theme .form-control {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+.light-theme .search-btn {
+    color: #64748b !important;
+}
+
+/* Cards & Containers */
+.light-theme .card,
+.light-theme .stat-card,
+.light-theme .content-card,
+.light-theme .profile-card-side,
+.light-theme .auth-card {
+    background: #ffffff !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--card-shadow) !important;
+    color: var(--text-color) !important;
+}
+
+/* Dropdown Menus Match Light Theme - Forced Override */
+.light-theme .custom-dropdown {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-theme .dropdown-item {
+    color: #334155 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.light-theme .dropdown-item:hover {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+}
+
+.light-theme .dropdown-item i {
+    color: #64748b !important;
+}
+
+.light-theme .dropdown-item:hover i {
+    color: #3b82f6 !important;
+}
+
+/* Fix "Not visible text" generally */
+.light-theme * {
+    /* Set a default text color for everything, but allow specific overrides */
+    border-color: var(--border-color);
+}
+
+/* Inputs & Forms */
+.light-theme input,
+.light-theme select,
+.light-theme textarea {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+}
+
+.light-theme input:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2) !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Utilities */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 100px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: none;
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-color), #d97706);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* App-like Logic: Hide Scrollbar but allow scroll */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Responsive Utilities */
+.mobile-only {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .mobile-only {
+        display: block !important;
+    }
+
+    button.mobile-only {
+        display: inline-flex !important;
+    }
+
+    .mobile-hide {
+        display: none !important;
+    }
+}

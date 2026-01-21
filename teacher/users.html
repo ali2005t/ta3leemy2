@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المستخدمين والمساعدين - Ta3leemy</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">الموظفين والمساعدين</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Link to Add User Form -->
+                <button class="btn btn-primary" onclick="window.location.href='add-user.html'">
+                    <i class="fas fa-user-plus"></i> إضافة موظف
+                </button>
+            </header>
+
+            <div class="page-content">
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="30%">الاسم</th>
+                                <th width="20%">الوظيفة / الصلاحية</th>
+                                <th width="25%">البريد الإلكتروني</th>
+                                <th width="10%">الحالة</th>
+                                <th width="10%">الأوامر</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                    <div id="loading-indicator" class="loading-state"><i class="fas fa-spinner fa-spin"></i> جاري
+                        التحميل...</div>
+                    <div id="empty-state" class="empty-state" style="display: none; background:none; border:none;">
+                        <p>لا يوجد موظفين مضافين</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Row Template -->
+    <template id="user-row-template">
+        <tr>
+            <td class="row-index">1</td>
+            <td class="row-name" style="font-weight:bold; color:white;">الاسم</td>
+            <td class="row-role">مساعد</td>
+            <td class="col-meta row-email">email@example.com</td>
+            <td><span class="badge badge-success row-status">نشط</span></td>
+            <td>
+                <div class="action-dropdown">
+                    <button class="btn-icon-menu"><i class="fas fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="dropdown-item danger"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/users.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

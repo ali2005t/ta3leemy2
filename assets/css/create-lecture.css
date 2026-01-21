@@ -1,0 +1,256 @@
+/* Create Lecture Page Styles - Dark Theme Redesign */
+
+:root {
+    --primary: #e66008;
+    /* Indigo 500 */
+    --primary-hover: #e66008;
+    /* Indigo 600 */
+    --surface: #1e293b;
+    /* Slate 800 */
+    --background: #0f172a;
+    /* Slate 900 */
+    --border: #334155;
+    /* Slate 700 */
+    --text-main: #f8fafc;
+    /* Slate 50 */
+    --text-light: #94a3b8;
+    /* Slate 400 */
+    --danger: #ef4444;
+    /* Red 500 */
+    --input-bg: #0f172a;
+    /* Slate 900 */
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    /* Ensure font consistency */
+}
+
+/* Card Styling */
+.card {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    /* Clean corners */
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    border-color: #475569;
+}
+
+/* Layout Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Inputs & Selects */
+.form-input,
+input.form-input,
+select.form-input,
+textarea.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    /* Larger touch target */
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    /* Smoother radius */
+    font-size: 1rem;
+    background: var(--input-bg) !important;
+    color: var(--text-main) !important;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.form-input:focus,
+input.form-input:focus,
+select.form-input:focus,
+textarea.form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    /* Ring effect */
+    background: var(--input-bg) !important;
+}
+
+.form-input::placeholder {
+    color: #475569;
+}
+
+/* Section Labels (Toggle Wrappers) */
+.section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    /* Subtle backdrop */
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* Radio Group Re-styling (Segmented Look) */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.radio-group label:hover {
+    color: white;
+}
+
+input[type="radio"] {
+    accent-color: var(--primary);
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color: var(--input-bg);
+}
+
+/* Editor Styling (Quill) */
+#editor-container {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    min-height: 300px;
+    color: var(--text-main);
+    /* White text inside */
+}
+
+/* Toolbar customization */
+.ql-toolbar.ql-snow {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-color: var(--border) !important;
+    background: #1e293b;
+    /* Match surface */
+    border-bottom: 1px solid var(--border);
+}
+
+.ql-container.ql-snow {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-color: var(--border) !important;
+    background: var(--input-bg);
+    color: white;
+    /* Important for text visibility */
+    font-size: 1rem;
+}
+
+.ql-stroke {
+    stroke: #cbd5e1 !important;
+    /* Lighter icons */
+}
+
+.ql-fill {
+    fill: #cbd5e1 !important;
+}
+
+.ql-picker {
+    color: #cbd5e1 !important;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border-color: #64748b;
+}
+
+/* File Input Wrapper */
+input[type="file"] {
+    background: var(--input-bg);
+    color: var(--text-light);
+    padding: 10px;
+}
+
+input[type="file"]::file-selector-button {
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-inline-end: 15px;
+    font-weight: 500;
+}
+
+/* Mobile Sidebar Toggle Fix */
+button.btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+button.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}

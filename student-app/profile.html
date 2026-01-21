@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>الملف الشخصي</title>
+
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/student-desktop.css">
+    <script type="module" src="../assets/js/student-common.js"></script>
+    <style>
+        .app-header {
+            background: var(--app-card-bg, #1e293b);
+            /* Default Dark */
+            color: var(--app-text, #ffffff);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.light-theme .app-header {
+            background: white;
+            color: #1e293b;
+        }
+
+        .profile-header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--app-card-bg, #1e293b);
+            /* Default Dark */
+            border-bottom: 1px solid var(--app-border, #334155);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        body.light-theme .profile-header {
+            background: white;
+            border-color: #e2e8f0;
+        }
+
+        .student-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--app-text-muted, #cbd5e1);
+            margin-bottom: 10px;
+        }
+
+        body.light-theme .student-badge {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .cord-handle {
+            width: 40px;
+            height: 40px;
+            background: #1e293b;
+            /* Default Dark */
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fbbf24;
+            /* Sun/Moon Color */
+            border: 1px solid #334155;
+            margin-top: -2px;
+            /* Connect to line */
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        /* Light Theme Handle */
+        body.light-theme .cord-handle {
+            background: white;
+            border-color: #e2e8f0;
+            color: #f59e0b;
+        }
+
+        /* Removed duplicate .profile-header block that caused white background in dark mode */
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--app-text, #ffffff);
+            margin-bottom: 5px;
+        }
+
+        .profile-email {
+            color: var(--app-text-muted, #cbd5e1);
+            font-size: 0.95rem;
+        }
+
+        .info-card {
+            background: var(--app-card-bg, #1e293b);
+            /* Default Dark */
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border: 1px solid var(--app-border, #334155);
+            transition: all 0.3s;
+        }
+
+        body.light-theme .info-card {
+            background: white;
+            border-color: #e2e8f0;
+        }
+
+        .info-label {
+            color: var(--app-text-muted, #94a3b8);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .info-val {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--app-text, #f1f5f9);
+        }
+
+        body.light-theme .info-val {
+            color: #1e293b;
+        }
+
+        .action-list {
+            background: var(--app-card-bg, #1e293b);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--app-border, #334155);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        body.light-theme .action-list {
+            background: #ffffff !important;
+            /* Force White Background */
+            border-color: #e2e8f0;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .action-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .action-icon {
+            width: 30px;
+            color: var(--app-text-muted, #cbd5e1);
+            /* Default Lighter Gray for Dark Mode */
+            transition: color 0.3s;
+        }
+
+        body.light-theme .action-icon {
+            color: #64748b;
+            /* Darker Gray for Light Mode */
+        }
+
+        .action-text {
+            flex: 1;
+            font-weight: 600;
+            color: var(--app-text, #ffffff);
+            /* Force White in Dark Mode */
+        }
+
+        body.light-theme .action-text {
+            color: #1e293b;
+            /* Dark Blue/Black for Light Mode */
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            color: #1e293b;
+        }
+
+        .profile-name {
+            margin: 10px 0 5px;
+            font-size: 1.5rem;
+            color: var(--app-text, #f1f5f9);
+        }
+
+        body.light-theme .profile-name {
+            color: #1e293b;
+        }
+
+        .profile-email {
+            color: var(--app-text-muted, #94a3b8);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--app-border, #334155);
+            color: var(--app-text, #ffffff) !important;
+            /* Force visible text in Dark Mode */
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        body.light-theme .action-item {
+            color: #1e293b !important;
+            border-bottom-color: #e2e8f0;
+        }
+
+        .action-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .action-item:hover {
+            background: #f1f5f9;
+        }
+    </style>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <h1 class="app-title" style="margin-right:auto;">حسابي</h1>
+    </header>
+
+    <main class="app-content" style="padding: 0;">
+        <h1 class="desktop-page-title" style="display:none; padding: 20px;">حسابي</h1>
+
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img src="../assets/images/student-avatar.png" alt="Profile">
+            </div>
+            <h2 class="profile-name" id="user-name">...</h2>
+            <div class="student-badge">طالب</div>
+            <p class="profile-email" id="user-email">...</p>
+        </div>
+
+        <div style="padding: 1rem;">
+
+            <div class="info-card">
+                <div>
+                    <div class="info-label">رقم الهاتف</div>
+                    <div class="info-val" id="user-phone">...</div>
+                </div>
+                <div style="text-align:left;">
+                    <div class="info-label">تاريخ الانضمام</div>
+                    <div class="info-val" id="join-date">...</div>
+                </div>
+            </div>
+
+            <!-- Dark Mode and Notifications -->
+            <div class="action-list">
+                <!-- Dark Mode Toggle -->
+                <div class="action-item" id="theme-toggle-row">
+                    <div class="action-item-content" style="display:flex; align-items:center; width:100%;">
+                        <div class="action-icon"><i class="fas fa-moon"></i></div>
+                        <div class="action-text">الوضع الليلي</div>
+                        <div>
+                            <i id="theme-status-icon" class="fas fa-toggle-off"
+                                style="font-size:1.5rem; color:#cbd5e1; transition: color 0.3s;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-item" id="notif-toggle-row">
+                    <div class="action-icon"><i class="fas fa-bell"></i></div>
+                    <div class="action-text">الإشعارات</div>
+                    <div>
+                        <i id="notif-status-icon" class="fas fa-toggle-off"
+                            style="font-size:1.5rem; color:#cbd5e1;"></i>
+                    </div>
+                </div>
+                <div class="action-item" id="change-pass-btn">
+                    <div class="action-icon"><i class="fas fa-lock"></i></div>
+                    <div class="action-text">تغيير كلمة المرور</div>
+                    <i class="fas fa-chevron-left" style="opacity:0.5;"></i>
+                </div>
+                <div class="action-item" id="support-btn">
+                    <div class="action-icon"><i class="fas fa-headset"></i></div>
+                    <div class="action-text">الدعم الفني</div>
+                    <i class="fas fa-chevron-left" style="opacity:0.5;"></i>
+                </div>
+            </div>
+
+            <button id="logout-btn"
+                style="width:100%; padding:15px; border:1px solid #ef4444; color:#ef4444; background:rgba(239,68,68,0.05); border-radius:12px; font-weight:bold; cursor:pointer;">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </button>
+
+        </div>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="my-courses.html" class="nav-item">
+            <i class="fas fa-book-reader"></i>
+            <span>مشترياتي</span>
+        </a>
+        <a href="support.html" class="nav-item">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <!-- Change Password Modal -->
+    <div id="pass-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:15px;">تغيير كلمة المرور</h3>
+            <div class="form-group">
+                <input type="password" id="new-pass" class="form-input" placeholder="كلمة المرور الجديدة">
+            </div>
+            <button id="confirm-pass-btn" class="app-btn">حفظ</button>
+            <button onclick="document.getElementById('pass-modal').style.display='none'"
+                style="background:none; border:none; color:#64748b; margin-top:10px; cursor:pointer;">إلغاء</button>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/context-resolver.js"></script>
+    <script type="module">
+        import { auth, db } from '../assets/js/firebase-config.js';
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            let currentUser = null;
+            let currentTeacherId = sessionStorage.getItem('currentTeacherId');
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    currentUser = user;
+                    loadUserData(user.uid);
+                    checkOneSignal();
+                } else {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            async function loadUserData(uid) {
+                const docSnap = await getDoc(doc(db, "students", uid));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('user-name').innerText = data.fullName || 'طالب';
+                    document.getElementById('user-phone').innerText = data.phone || '---';
+                    document.getElementById('user-email').innerText = (data.email || user.email).split('@')[0] + '@...';
+
+                    const date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : 'حديث';
+                    document.getElementById('join-date').innerText = date;
+                } else {
+                    document.getElementById('user-email').innerText = currentUser.email;
+                }
+            }
+
+            // Logout
+            document.getElementById('logout-btn').onclick = (e) => {
+                e.preventDefault();
+                if (window.logoutUser) window.logoutUser();
+            };
+
+            // Support Logic
+            document.getElementById('support-btn').onclick = () => {
+                window.location.href = 'support.html';
+            };
+
+            // Change Password Logic
+            document.getElementById('change-pass-btn').onclick = () => {
+                document.getElementById('pass-modal').style.display = 'flex';
+            };
+
+            document.getElementById('confirm-pass-btn').onclick = async () => {
+                const newPass = document.getElementById('new-pass').value;
+                if (!newPass || newPass.length < 6) {
+                    alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+                    return;
+                }
+                const btn = document.getElementById('confirm-pass-btn');
+                btn.innerText = "جاري التغيير...";
+
+                try {
+                    await updatePassword(currentUser, newPass);
+                    alert("تم تغيير كلمة المرور بنجاح");
+                    document.getElementById('pass-modal').style.display = 'none';
+                    document.getElementById('new-pass').value = '';
+                } catch (e) {
+                    console.error(e);
+                    if (e.code === 'auth/requires-recent-login') {
+                        alert("لأمان حسابك، يرجى تسجيل الخروج والدخول مرة أخرى ثم المحاولة");
+                    } else {
+                        alert("حدث خطأ: " + e.message);
+                    }
+                } finally {
+                    btn.innerText = "حفظ";
+                }
+            };
+
+            // Notification Toggle (OneSignal)
+            if (window.OneSignalDeferred) {
+                OneSignalDeferred.push(async function (OneSignal) {
+                    const icon = document.getElementById('notif-status-icon');
+                    const row = document.getElementById('notif-toggle-row');
+
+                    // 1. Localhost Simulation
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        // Check simulated state
+                        const isSimulatedOn = localStorage.getItem('sim_notif') === 'true';
+                        updateIcon(isSimulatedOn);
+
+                        row.onclick = () => {
+                            const newState = !isSimulatedOn;
+                            localStorage.setItem('sim_notif', newState);
+                            updateIcon(newState);
+                            // alert(newState ? "تم تفعيل الإشعارات (محاكاة)" : "تم إيقاف الإشعارات (محاكاة)");
+                            updateIcon(localStorage.getItem('sim_notif') === 'true'); // Refresh scope variable workaround
+                        };
+
+                        function updateIcon(isOn) {
+                            if (isOn) {
+                                icon.className = 'fas fa-toggle-on';
+                                icon.style.color = '#10b981';
+                            } else {
+                                icon.className = 'fas fa-toggle-off';
+                                icon.style.color = '#cbd5e1';
+                            }
+                        }
+                        return; // Stop here for localhost
+                    }
+
+                    // 2. Real OneSignal Logic
+                    // v16 API: OneSignal.Notifications.permission (property)
+                    const permission = OneSignal.Notifications.permission; // boolean or string
+
+                    // Check if granted
+                    if (permission === true || permission === 'granted') {
+                        icon.className = 'fas fa-toggle-on';
+                        icon.style.color = '#10b981'; // Green
+                    } else {
+                        icon.className = 'fas fa-toggle-off';
+                        icon.style.color = '#cbd5e1';
+                    }
+
+                    row.onclick = async () => {
+                        // v16 API
+                        await OneSignal.Notifications.requestPermission();
+                        // Update icon after request
+                        const newPerm = OneSignal.Notifications.permission;
+                        if (newPerm === true || newPerm === 'granted') {
+                            icon.className = 'fas fa-toggle-on';
+                            icon.style.color = '#10b981';
+                        }
+                    };
+                });
+            }
+
+        });
+    </script>
+    <script type="module">
+        import { applyTheme } from '../assets/js/theme-loader.js';
+        applyTheme();
+    </script>
+    <!-- SPA Router Removed -->
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/theme-loader.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+    <script type="module" src="../assets/js/student-profile.js"></script>
+</body>
+
+</html>
+

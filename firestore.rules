@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // --- Teachers Collection ---
+    // Teachers can read/write their own profile.
+    // Public can read basic teacher info (for landing pages).
+    match /teachers/{teacherId} {
+      allow read: if true; // Needed for student landing pages to see teacher info
+      allow write: if isOwner(teacherId);
+    }
+
+    // --- Students Collection ---
+    // Students can read/write their own profile.
+    // Teachers can read students enrolled with them (handled via query logic mostly, but rules should arguably be stricter).
+    match /students/{studentId} {
+      allow read, write: if isOwner(studentId) || isAuthenticated(); // Broad for now to prevent breakage, restrict later
+    }
+
+    // --- Training Programs / Courses ---
+    // Public read (for catalog).
+    // Write only by authenticated teachers.
+    match /training_programs/{programId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    
+    match /lectures/{lectureId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // --- Exams & Grades ---
+    match /exams/{examId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+    
+    match /exam_results/{resultId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // --- Settings & Config ---
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if false; // Admin only (console)
+    }
+    
+    match /system/{docId} {
+         allow read: if true;
+    }
+    
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

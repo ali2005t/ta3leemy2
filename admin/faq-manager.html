@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الأسئلة الشائعة - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <div class="content-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h3>الأسئلة الشائعة (FAQ)</h3>
+                        <button onclick="openEditModal()"
+                            style="padding:10px 20px; background:#6366f1; color:white; border:none; border-radius:8px; cursor:pointer;">
+                            <i class="fas fa-plus"></i> سؤال جديد
+                        </button>
+                    </div>
+
+                    <div id="faq-list" style="display:flex; flex-direction:column; gap:10px;">
+                        <!-- JS Generated -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit/Add Modal -->
+    <div id="faq-modal" class="modal"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:100; align-items:center; justify-content:center;">
+        <div
+            style="background:#0f172a; padding:25px; border-radius:12px; width:90%; max-width:500px; border:1px solid #334155;">
+            <h3 id="modal-title" style="margin-top:0; color:white;">إضافة سؤال</h3>
+            <input type="hidden" id="faq-id">
+
+            <div style="margin-bottom:15px;">
+                <label style="display:block; color:#cbd5e1; margin-bottom:5px;">السؤال</label>
+                <input type="text" id="faq-question"
+                    style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label style="display:block; color:#cbd5e1; margin-bottom:5px;">الإجابة</label>
+                <textarea id="faq-answer" rows="5"
+                    style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px; resize:vertical;"></textarea>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button onclick="closeModal()"
+                    style="padding:8px 20px; background:transparent; border:1px solid #334155; color:white; border-radius:6px; cursor:pointer;">إلغاء</button>
+                <button onclick="saveFAQ()"
+                    style="padding:8px 20px; background:#6366f1; color:white; border:none; border-radius:6px; cursor:pointer;">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <!-- Admin UI -->
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('الأسئلة الشائعة'));
+    </script>
+    <script type="module" src="../assets/js/admin/faq-manager.js"></script>
+</body>
+
+</html>

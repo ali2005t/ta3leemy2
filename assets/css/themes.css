@@ -1,0 +1,73 @@
+/* themes.css - Dynamic Platform Themes */
+
+/* 
+    Usage: <html data-theme="default"> OR <html data-theme="blue"> 
+    This file overrides the :root variables defined in style.css and student.css 
+*/
+
+/* --- 1. DEFAULT (Gold/Dark) --- */
+[data-theme="default"] {
+    /* Teacher Dashboard */
+    --primary-color: #f59e0b;
+    --primary-hover: #d97706;
+    --accent-color: #f59e0b;
+    /* Student App */
+    --app-primary: #f59e0b;
+    --app-primary-hover: #fbbf24;
+}
+
+/* --- 2. ACADEMIC (Blue/Tech) --- */
+[data-theme="blue"] {
+    /* Teacher Dashboard */
+    --primary-color: #3b82f6;
+    /* Blue 500 */
+    --primary-hover: #2563eb;
+    /* Blue 600 */
+    --accent-color: #3b82f6;
+    /* Student App */
+    --app-primary: #3b82f6;
+    --app-primary-hover: #60a5fa;
+    /* Blue 400 */
+}
+
+/* --- 3. MODERN (Purple/Neon) --- */
+[data-theme="purple"] {
+    /* Teacher Dashboard */
+    --primary-color: #8b5cf6;
+    /* Violet 500 */
+    --primary-hover: #7c3aed;
+    /* Violet 600 */
+    --accent-color: #8b5cf6;
+    /* Student App */
+    --app-primary: #8b5cf6;
+    --app-primary-hover: #a78bfa;
+    /* Violet 400 */
+}
+
+/* --- 4. NATURE (Emerald/Calm) --- */
+[data-theme="emerald"] {
+    /* Teacher Dashboard */
+    --primary-color: #10b981;
+    /* Emerald 500 */
+    --primary-hover: #059669;
+    /* Emerald 600 */
+    --accent-color: #10b981;
+    /* Student App */
+    --app-primary: #10b981;
+    --app-primary-hover: #34d399;
+    /* Emerald 400 */
+}
+
+/* --- 5. CRIMSON (Bold/Red) - Bonus --- */
+[data-theme="crimson"] {
+    /* Teacher Dashboard */
+    --primary-color: #ef4444;
+    /* Red 500 */
+    --primary-hover: #dc2626;
+    /* Red 600 */
+    --accent-color: #ef4444;
+    /* Student App */
+    --app-primary: #ef4444;
+    --app-primary-hover: #f87171;
+    /* Red 400 */
+}

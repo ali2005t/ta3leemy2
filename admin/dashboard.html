@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المشرف - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Admin Sidebar (Injected by admin-ui.js) -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="count-teachers">-</h3>
+                            <p>المعلمون</p>
+                        </div>
+                        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="count-students">-</h3>
+                            <p>الطلاب</p>
+                        </div>
+                        <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="count-courses">-</h3>
+                            <p>الكورسات</p>
+                        </div>
+                        <div class="stat-icon"><i class="fas fa-book"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="total-revenue">-</h3>
+                            <p>الإيرادات</p>
+                        </div>
+                        <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+                    </div>
+                </div>
+
+                <!-- Domain Requests (New) -->
+                <div class="content-card" style="margin-bottom:2rem; border-left:4px solid #f59e0b;">
+                    <div class="card-header"
+                        style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center;">
+                        <h3><i class="fas fa-globe" style="margin-left:10px; color:#f59e0b;"></i> طلبات الدومين الخاص
+                        </h3>
+                        <span class="badge" id="domain-req-count"
+                            style="background:#f59e0b; color:black; display:none;">0</span>
+                    </div>
+                    <div class="table-container" style="border:none; box-shadow:none;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>المعلم</th>
+                                    <th>الدومين المطلوب</th>
+                                    <th>الحالة</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="domain-requests-body">
+                                <tr>
+                                    <td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">لا توجد
+                                        طلبات جديدة</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="content-card">
+                    <div class="card-header" style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <h3>آخر المعلمين المسجلين</h3>
+                    </div>
+                    <div class="table-container" style="border:none; box-shadow:none;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>البريد</th>
+                                    <th>الحالة</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-teachers-body">
+                                <tr>
+                                    <td colspan="4" style="text-align:center;">جاري التحميل...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/admin/admin-dashboard.js"></script>
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('لوحة التحكم'));
+    </script>
+</body>
+
+</html>

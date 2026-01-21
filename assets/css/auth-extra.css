@@ -1,0 +1,32 @@
+/* Fix Dropdown/Select Visibility */
+select.form-input {
+    background-color: rgba(255, 255, 255, 0.03);
+    /* Keep transparent if supported */
+    color: var(--text-color);
+    appearance: none;
+    /* Remove default arrow in some browsers for custom styling, but let's be careful */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: left 1rem center;
+    /* RTL usually, check dir */
+    background-size: 1em;
+}
+
+/* Force Options to have Dark Background & White Text */
+select.form-input option {
+    background-color: #1e293b !important;
+    color: white !important;
+    padding: 10px;
+}
+
+/* Fix for Autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #1e293b inset !important;
+    -webkit-text-fill-color: rgb(0, 0, 0) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات الإحالة - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <div class="content-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h3>أهداف الإحالة (Referral Goals)</h3>
+                        <button onclick="openGoalModal()" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> إضافة هدف جديد
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الوصف</th>
+                                    <th>المطلوب (عدد المعلمين)</th>
+                                    <th>المكافأة</th>
+                                    <th>الحالة</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="goals-table-body">
+                                <tr>
+                                    <td colspan="5" style="text-align:center;">جاري التحميل...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Goal Modal -->
+    <div id="goal-modal" class="modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div class="modal-content"
+            style="background:#0f172a; padding:2rem; border-radius:12px; width:90%; max-width:500px; border:1px solid #334155;">
+            <h3 id="modal-title" style="margin-bottom:1.5rem; color:white;">إضافة هدف جديد</h3>
+            <form id="goal-form">
+                <input type="hidden" id="goal-id">
+
+                <div class="form-group">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">وصف العرض</label>
+                    <input type="text" id="goal-description" required
+                        placeholder="مثال: ادع 5 معلمين واحصل على شهر مجاني"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <div class="form-group" style="margin-top:15px;">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">عدد المعلمين المطلوب
+                        (Target)</label>
+                    <input type="number" id="goal-target" required min="1" placeholder="5"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <div class="form-group" style="margin-top:15px;">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">نوع المكافأة</label>
+                    <select id="goal-reward-type"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                        <option value="subscription_period">فترة اشتراك (أيام)</option>
+                        <option value="financial_bonus">مكافأة مالية (رصيد)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-top:15px;">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">قيمة المكافأة</label>
+                    <input type="number" id="goal-reward-value" required placeholder="30 (يوم) أو 200 (جنية)"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <!-- Date Range -->
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <div class="form-group" style="flex:1;">
+                        <label style="display:block; color:#94a3b8; margin-bottom:5px;">تاريخ البداية (اختياري)</label>
+                        <input type="date" id="goal-start-date"
+                            style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label style="display:block; color:#94a3b8; margin-bottom:5px;">تاريخ النهاية</label>
+                        <input type="date" id="goal-end-date"
+                            style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                    </div>
+                </div>
+
+                <!-- Target Audience -->
+                <div class="form-group" style="margin-top:15px;">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">الجمهور المستهدف</label>
+                    <select id="goal-target-type" onchange="toggleTargetSearch()"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                        <option value="all">جميع المعلمين</option>
+                        <option value="specific">معلم محدد</option>
+                    </select>
+                </div>
+
+                <!-- Teacher Search (Hidden) -->
+                <div class="form-group" id="target-search-group" style="margin-top:15px; display:none;">
+                    <label style="display:block; color:#94a3b8; margin-bottom:5px;">بحث عن معلم</label>
+                    <div style="position:relative;">
+                        <input type="text" id="teacher-search-input" placeholder="اكتب اسم المعلم..."
+                            style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                        <div id="teacher-search-results"
+                            style="display:none; position:absolute; top:100%; left:0; right:0; background:#1e293b; border:1px solid #334155; border-radius:8px; max-height:200px; overflow-y:auto; z-index:10;">
+                        </div>
+                    </div>
+                    <div id="selected-teacher-display"
+                        style="margin-top:10px; padding:10px; background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.2); border-radius:8px; display:none; align-items:center; justify-content:space-between;">
+                        <span id="selected-teacher-name" style="color:#10b981;"></span>
+                        <button type="button" onclick="clearSelectedTeacher()" class="btn-icon"
+                            style="color:#ef4444;"><i class="fas fa-times"></i></button>
+                    </div>
+                    <input type="hidden" id="goal-target-id">
+                </div>
+
+                <div class="form-group" style="margin-top:15px; display:flex; gap:10px; align-items:center;">
+                    <input type="checkbox" id="goal-active" checked style="width:20px; height:20px;">
+                    <label for="goal-active" style="color:white;">تفعيل العرض فوراً</label>
+                </div>
+
+                <div style="margin-top:25px; display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" onclick="document.getElementById('goal-modal').style.display='none'"
+                        class="btn btn-secondary">إلغاء</button>
+                    <button type="submit" class="btn btn-primary" id="save-goal-btn">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/ui-manager.js"></script>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <!-- <script src="../assets/js/ui-manager.js"></script> Already in main script? -->
+    <script type="module" src="../assets/js/admin/referral-settings.js"></script>
+    <script type="module" src="../assets/js/admin/impersonation.js"></script>
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('إعدادات الإحالة'));
+    </script>
+</body>
+
+</html>

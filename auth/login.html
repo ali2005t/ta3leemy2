@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول - Ta3leemy</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <a href="../index.html" class="logo"
+            style="position: absolute; top: 2rem; right: 2rem; display:flex; align-items:center; gap:10px;">
+            <img src="../assets/images/logo.png" alt="Logo" style="height:40px; border-radius:50%;">
+            <span>Ta3leemy<span class="dot">.</span></span>
+        </a>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>مرحباً بك مجدداً 👋</h2>
+                <p>سجل دخولك لإدارة منصتك التعليمية</p>
+            </div>
+
+            <div id="error-message" class="error-message"></div>
+
+            <form id="login-form">
+                <!-- Login Tabs -->
+                <div class="login-tabs">
+                    <div class="login-tab active" id="tab-email" onclick="switchLoginMode('email')">البريد الإلكتروني
+                    </div>
+                    <div class="login-tab" id="tab-phone" onclick="switchLoginMode('phone')">رقم الهاتف</div>
+                </div>
+
+                <!-- 1. Email Mode -->
+                <div id="email-mode" class="input-mode active">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" class="form-input" placeholder="name@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Phone Mode -->
+                <div id="phone-mode" class="input-mode">
+                    <div class="form-group">
+                        <label>رقم الهاتف</label>
+                        <div class="phone-input-group">
+                            <span class="country-code">🇪🇬 +20</span>
+                            <input type="tel" id="mobile-phone" class="phone-field" placeholder="10xxxxxxxx">
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="login-method" value="email">
+
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                        <i class="fas fa-eye password-toggle" id="toggle-password"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <label
+                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #64748b; font-size: 0.9rem;">
+                            <input type="checkbox" id="remember-me"
+                                style="width: 16px; height: 16px; cursor: pointer; accent-color: #6366f1;">
+                            <span>تذكرني</span>
+                        </label>
+                        <a href="forgot-password.html"
+                            style="font-size: 0.85rem; color: #6366f1; text-decoration: none;">نسيت كلمة المرور؟</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width" id="submit-btn">
+                    <span id="btn-text">دخول</span>
+                    <i class="fas fa-spinner fa-spin" id="btn-loader" style="display: none;"></i>
+                </button>
+            </form>
+
+            <div class="form-footer">
+                ليس لديك حساب؟ <a href="register.html">أنشئ منصتك الآن</a>
+            </div>
+        </div>
+
+        <script type="module" src="../assets/js/firebase-config.js"></script>
+        <script type="module" src="../assets/js/check-maintenance.js"></script>
+        <script type="module" src="../assets/js/login.js"></script>
+        <script>
+            // Login Mode Switcher
+            window.switchLoginMode = function (mode) {
+                document.getElementById('login-method').value = mode;
+
+                // Toggle Tabs
+                document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+                document.getElementById('tab-' + mode).classList.add('active');
+
+                // Toggle Inputs
+                document.querySelectorAll('.input-mode').forEach(m => m.classList.remove('active'));
+                document.getElementById(mode + '-mode').classList.add('active');
+
+                // Focus
+                if (mode === 'email') document.getElementById('email').focus();
+                else document.getElementById('mobile-phone').focus();
+            };
+        </script>
+</body>
+
+</html>

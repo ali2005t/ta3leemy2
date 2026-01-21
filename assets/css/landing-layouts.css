@@ -1,0 +1,574 @@
+/* landing-layouts.css - Structural Variations for Index Page */
+
+/* --- 1. LUXE LAYOUT (Default - v1) --- */
+/* Uses default variables from style.css */
+
+
+/* --- 2. MODERN SAAS LAYOUT (Academic/Clean - v2) --- */
+body.layout-v2 {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    --primary-color: #3b82f6;
+    /* Blue Override */
+    --bg-color: #ffffff;
+    --text-color: #1e293b;
+    --accent-color: #f59e0b;
+}
+
+body.layout-v2 .navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+body.layout-v2 .hero-section {
+    background: white;
+}
+
+body.layout-v2 .hero-content {
+    flex-direction: row;
+    /* Force row */
+    text-align: left;
+    padding-top: 4rem;
+    gap: 4rem;
+}
+
+body.layout-v2 .hero-text h1 {
+    color: #0f172a;
+    font-weight: 800;
+}
+
+body.layout-v2 .hero-text p {
+    color: #475569;
+}
+
+body.layout-v2 .badge {
+    background: #eff6ff;
+    color: #3b82f6;
+    border: 1px solid #dbeafe;
+}
+
+body.layout-v2 .feature-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+body.layout-v2 .feature-card h3 {
+    color: #1e293b;
+}
+
+body.layout-v2 .feature-card p {
+    color: #64748b;
+}
+
+/* Visibility Fixes for Layout 2 */
+body.layout-v2 .navbar .nav-links a,
+body.layout-v2 .navbar .logo {
+    color: #1e293b !important;
+}
+
+body.layout-v2 .stat-item h3 {
+    color: #0f172a;
+}
+
+body.layout-v2 .stat-item p {
+    color: #64748b;
+}
+
+body.layout-v2 .section-title h2 {
+    color: #1e293b;
+}
+
+body.layout-v2 .section-title p {
+    color: #64748b;
+}
+
+body.layout-v2 .pricing-section {
+    background: #f8fafc;
+    /* Slightly darker than card */
+}
+
+body.layout-v2 .price-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+body.layout-v2 .price-card h3,
+body.layout-v2 .price-card .price {
+    color: #1e293b;
+}
+
+body.layout-v2 .price-card .features-list li {
+    color: #475569;
+}
+
+body.layout-v2 .gradient-text {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* RTL Override for v2 */
+body.layout-v2[dir="rtl"] .hero-content {
+    text-align: right;
+}
+
+
+/* --- 3. CREATIVE BOLD LAYOUT (v3) --- */
+body.layout-v3 {
+    --primary-color: #ec4899;
+    /* Pink/Purple */
+    --accent-color: #8b5cf6;
+    background-color: #0f172a;
+}
+
+body.layout-v3 .navbar {
+    background: transparent;
+    border: none;
+    padding-top: 2rem;
+}
+
+body.layout-v3 .hero-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+body.layout-v3 .hero-text h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+body.layout-v3 .hero-btns .btn {
+    border-radius: 8px;
+    /* Sharper */
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+body.layout-v3 .feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+@media (max-width: 900px) {
+    body.layout-v3 .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+
+/* --- 4. MINIMALIST LAYOUT (v4 - Wireframe) --- */
+body.layout-v4 {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    --primary-color: #000000;
+    --accent-color: #000000;
+    font-family: 'Courier New', monospace, sans-serif !important;
+}
+
+body.layout-v4 .navbar {
+    background: #ffffff !important;
+    border-bottom: 3px solid #000 !important;
+    box-shadow: none !important;
+}
+
+body.layout-v4 .navbar a {
+    color: #000 !important;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+body.layout-v4 .hero-content {
+    text-align: center;
+    padding-top: 6rem;
+}
+
+body.layout-v4 .hero-text h1 {
+    color: #000;
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+body.layout-v4 .gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: #000 !important;
+    border-bottom: 5px solid #000;
+    display: inline-block;
+    line-height: 0.9;
+}
+
+body.layout-v4 .btn-primary {
+    background: #000 !important;
+    color: #fff !important;
+    border: 3px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: 6px 6px 0px #000 !important;
+    /* Brutalist Hard Shadow */
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+body.layout-v4 .btn-primary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0px #000 !important;
+}
+
+body.layout-v4 .btn-secondary {
+    background: #fff !important;
+    border: 3px solid #000 !important;
+    color: #000 !important;
+    border-radius: 0 !important;
+    box-shadow: 6px 6px 0px #000 !important;
+    font-weight: 800;
+}
+
+body.layout-v4 .hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    /* Force separation */
+    justify-content: center;
+}
+
+body.layout-v4 .feature-card,
+body.layout-v4 .price-card {
+    background: #fff;
+    border: 3px solid #000 !important;
+    box-shadow: 8px 8px 0px #000 !important;
+    border-radius: 0 !important;
+}
+
+body.layout-v4 h1,
+body.layout-v4 h2,
+body.layout-v4 h3 {
+    color: #000 !important;
+    font-weight: 900;
+}
+
+body.layout-v4 p,
+body.layout-v4 li {
+    color: #000 !important;
+    font-weight: 600;
+    /* Bolder text for visibility */
+}
+
+body.layout-v4 .hero-section::before {
+    display: none;
+    /* No glow */
+}
+
+
+/* --- 5. TECH/CYBER LAYOUT (v5) --- */
+body.layout-v5 {
+    background-color: #020617 !important;
+    color: #e2e8f0;
+    --primary-color: #3b82f6;
+    --accent-color: #06b6d4;
+    /* Cyan */
+}
+
+body.layout-v5 .hero-section::before {
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+}
+
+body.layout-v5 .navbar {
+    border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+    background: rgba(2, 6, 23, 0.95);
+}
+
+body.layout-v5 .gradient-text {
+    background: linear-gradient(to right, #06b6d4, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.layout-v5 .feature-card,
+body.layout-v5 .price-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+}
+
+body.layout-v5 .feature-card:hover {
+    border-color: #06b6d4;
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+body.layout-v5 .btn-primary {
+    background: linear-gradient(to right, #06b6d4, #3b82f6);
+    border: none;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+}
+
+/* --- 6. SOFT/EARTHY LAYOUT (v6 - Nature) --- */
+body.layout-v6 {
+    background-color: #f0fdf4 !important;
+    /* Very light green/mint */
+    color: #14532d !important;
+    /* Dark Green Text */
+    --primary-color: #10b981;
+    /* Emerald */
+    --accent-color: #f59e0b;
+    /* Amber */
+}
+
+body.layout-v6 .bg-gradient {
+    background: linear-gradient(to bottom, #dcfce7, #f0fdf4) !important;
+}
+
+body.layout-v6 .navbar {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-bottom: none;
+    box-shadow: 0 4px 20px -5px rgba(16, 185, 129, 0.1);
+}
+
+body.layout-v6 .navbar a {
+    color: #166534 !important;
+}
+
+body.layout-v6 .logo {
+    color: #10b981 !important;
+}
+
+body.layout-v6 .hero-text h1 {
+    color: #14532d;
+}
+
+body.layout-v6 .gradient-text {
+    background: linear-gradient(to right, #10b981, #059669);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.layout-v6 .btn-primary {
+    background: #10b981;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+}
+
+body.layout-v6 .btn-secondary {
+    border-radius: 50px;
+    border-color: #10b981;
+    color: #10b981;
+}
+
+body.layout-v6 .feature-card,
+body.layout-v6 .price-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+body.layout-v6 .feature-card:hover {
+    border-color: #10b981;
+    transform: translateY(-5px);
+}
+
+body.layout-v6 h1,
+body.layout-v6 h2,
+body.layout-v6 h3 {
+    color: #14532d !important;
+}
+
+body.layout-v6 p,
+body.layout-v6 li {
+    color: #3f6212 !important;
+    /* Olive Green */
+}
+
+body.layout-v6 .hero-section::before {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+}
+
+/* --- 7. SUNSET/VIBRANT LAYOUT (v7) --- */
+body.layout-v7 {
+    background-color: #0f172a !important;
+    color: #ffffff;
+    --primary-color: #f97316;
+    /* Orange */
+    --accent-color: #db2777;
+    /* Pink */
+}
+
+body.layout-v7 .hero-section::before {
+    background: radial-gradient(circle, rgba(219, 39, 119, 0.2) 0%, transparent 70%);
+}
+
+body.layout-v7 .navbar {
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.layout-v7 .gradient-text {
+    background: linear-gradient(to right, #f97316, #db2777, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+body.layout-v7 .btn-primary {
+    background: linear-gradient(to right, #f97316, #db2777);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
+}
+
+body.layout-v7 .btn-secondary {
+    background: transparent;
+    border: 1px solid #db2777;
+    color: #fff;
+    border-radius: 8px;
+}
+
+body.layout-v7 .feature-card,
+body.layout-v7 .price-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+}
+
+body.layout-v7 .feature-card:hover {
+    border-color: #f97316;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.layout-v7 h1,
+body.layout-v7 h2,
+body.layout-v7 h3 {
+    color: #fff;
+}
+
+
+/* --- 8. OCEAN LAYOUT (v8) --- */
+body.layout-v8 {
+    background-color: #0f2c40 !important;
+    /* Deep Ocean Blue */
+    color: #e0f2fe;
+    --primary-color: #0ea5e9;
+    /* Sky Blue */
+    --accent-color: #38bdf8;
+}
+
+body.layout-v8 .hero-section::before {
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
+}
+
+body.layout-v8 .navbar {
+    background: rgba(15, 44, 64, 0.95);
+    border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+body.layout-v8 .gradient-text {
+    background: linear-gradient(to right, #38bdf8, #0ea5e9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.layout-v8 .feature-card,
+body.layout-v8 .price-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(14, 165, 233, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.layout-v8 .btn-primary {
+    background: #0ea5e9;
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+    border-radius: 50px;
+}
+
+/* --- 9. FOREST LAYOUT (v9) --- */
+body.layout-v9 {
+    background-color: #052e16 !important;
+    /* Dark Forest Green */
+    color: #f0fdf4;
+    --primary-color: #fbbf24;
+    /* Amber/Gold */
+    --accent-color: #10b981;
+    /* Emerald */
+}
+
+body.layout-v9 .navbar {
+    background: rgba(5, 46, 22, 0.95);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+body.layout-v9 .gradient-text {
+    background: linear-gradient(to right, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.layout-v9 .feature-card,
+body.layout-v9 .price-card {
+    background: #064e3b;
+    border: 1px solid rgba(251, 191, 36, 0.1);
+}
+
+body.layout-v9 .btn-primary {
+    background: #fbbf24;
+    color: #052e16;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* --- 10. MIDNIGHT LUXURY (v10) --- */
+body.layout-v10 {
+    background-color: #000000 !important;
+    color: #d4af37;
+    /* Gold */
+    --primary-color: #d4af37;
+    --accent-color: #ffffff;
+    font-family: 'Times New Roman', serif;
+    /* Serif for luxury */
+}
+
+body.layout-v10 .navbar {
+    background: #000000;
+    border-bottom: 1px solid #d4af37;
+}
+
+body.layout-v10 .gradient-text {
+    background: linear-gradient(to bottom, #ffd700, #d4af37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+body.layout-v10 .feature-card,
+body.layout-v10 .price-card {
+    background: #111;
+    border: 1px solid #d4af37;
+    border-radius: 0;
+}
+
+body.layout-v10 .btn-primary {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+body.layout-v10 .btn-primary:hover {
+    background: #d4af37;
+    color: #000;
+}

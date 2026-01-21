@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تسجيل الدخول</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --accent-color: var(--app-primary);
+            /* Sync with Teacher/Platform Color */
+        }
+    </style>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <link rel='icon' href='../assets/images/logo.png' type='image/png'>
+</head>
+
+<body>
+
+    <button class="theme-toggle-fixed theme-toggle-btn" title="تغيير المظهر">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <a href="#" class="auth-logo">منصتي</a>
+            <p class="auth-sub">مرحباً بعودتك! سجل الدخول للمتابعة</p>
+
+            <div id="student-error-message"
+                style="display:none; text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px;">
+            </div>
+
+            <form id="student-login-form">
+                <!-- Login Tabs -->
+                <div class="login-tabs">
+                    <div class="login-tab active" id="tab-email" onclick="switchLoginMode('email')">البريد الإلكتروني
+                    </div>
+                    <div class="login-tab" id="tab-phone" onclick="switchLoginMode('phone')">رقم الهاتف</div>
+                </div>
+
+                <!-- 1. Email Mode -->
+                <div id="email-mode" class="input-mode active">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="name@example.com">
+                    </div>
+                </div>
+
+                <!-- 2. Phone Mode -->
+                <div id="phone-mode" class="input-mode">
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف</label>
+                        <div class="phone-input-group">
+                            <span class="country-code">🇪🇬 +20</span>
+                            <input type="tel" id="login-phone" class="phone-field" placeholder="10xxxxxxxx">
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="login-method" value="email">
+
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <label
+                        style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--app-text-muted, #64748b); font-size: 0.9rem;">
+                        <input type="checkbox" id="remember-me"
+                            style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--app-primary);">
+                        <span>تذكرني</span>
+                    </label>
+                    <a href="forgot-password.html"
+                        style="font-size: 0.85rem; color: var(--app-primary); text-decoration: none;">نسيت كلمة
+                        المرور؟</a>
+                </div>
+
+                <button type="submit" class="btn-auth" id="login-btn">
+                    <span id="btn-text">تسجيل الدخول</span>
+                    <i class="fas fa-spinner fa-spin" id="btn-loader" style="display: none;"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                ليس لديك حساب؟ <a href="register.html">انشئ حساب جديد</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/student-auth.js"></script>
+    <script type="module" src="../assets/js/notification-manager.js"></script>
+
+    <script src="../assets/js/theme.js"></script>
+
+    <!-- Dynamic Domain Logic SImulation -->
+    <script>
+        // If teacher ID is passed via URL (simulating domain), store it for session
+        const params = new URLSearchParams(window.location.search);
+        const tid = params.get('tid') || params.get('t');
+        if (tid) {
+            sessionStorage.setItem('preferredTeacherId', tid);
+            console.log("Simulating domain for Teacher ID:", tid);
+            // In a real app, this ID would determine the branding
+        }
+
+        // Login Mode Switcher
+        window.switchLoginMode = function (mode) {
+            document.getElementById('login-method').value = mode;
+
+            // Toggle Tabs
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + mode).classList.add('active');
+
+            // Toggle Inputs
+            document.querySelectorAll('.input-mode').forEach(m => m.classList.remove('active'));
+            document.getElementById(mode + '-mode').classList.add('active');
+
+            // Focus
+            if (mode === 'email') document.getElementById('login-email').focus();
+            else document.getElementById('login-phone').focus();
+        };
+    </script>
+</body>
+
+</html>

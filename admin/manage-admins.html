@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المساعدين - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .permission-item {
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .permission-item label {
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #0f172a;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid #334155;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Custom Multi Select */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+        }
+
+        .custom-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            min-height: 45px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .custom-select-options {
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            z-index: 100;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-select-options.open {
+            display: block;
+        }
+
+        .custom-option {
+            padding: 10px;
+            border-bottom: 1px solid #334155;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-option:hover {
+            background: #2d3f56;
+        }
+
+        .custom-option.selected {
+            background: #2563eb;
+            color: white;
+        }
+
+        .tag {
+            background: #3b82f6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="display:flex; justify-content:center; padding: 20px 0;">
+                <img src="../assets/images/Gemini_Generated_Image_gipfqrgipfqrgipf.png" alt="Ta3leemy"
+                    style="max-height: 80px; max-width: 90%; object-fit:contain;">
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item" onclick="window.location.href='dashboard.html'"><i class="fas fa-home"></i>
+                    الرئيسية</div>
+                <div class="menu-item active" onclick="window.location.href='manage-admins.html'"><i
+                        class="fas fa-users-cog"></i> المساعدين والأدوار</div>
+                <div class="menu-item" onclick="window.location.href='teachers.html'"><i
+                        class="fas fa-chalkboard-teacher"></i> المعلمون</div>
+                <div class="menu-item" onclick="window.location.href='students.html'"><i
+                        class="fas fa-user-graduate"></i> الطلاب</div>
+                <div class="menu-item" onclick="window.location.href='courses.html'"><i class="fas fa-book"></i>
+                    الكورسات</div>
+                <div class="menu-item" onclick="window.location.href='packages.html'"><i class="fas fa-box-open"></i>
+                    الباقات</div>
+                <div class="menu-item" onclick="window.location.href='subscriptions.html'"><i
+                        class="fas fa-file-invoice-dollar"></i> الاشتراكات</div>
+                <div class="menu-item" onclick="window.location.href='financials.html'"><i
+                        class="fas fa-dollar-sign"></i> المالية</div>
+                <div class="menu-item" onclick="window.location.href='app-requests.html'"><i
+                        class="fas fa-mobile-screen"></i> تجهيز التطبيقات</div>
+                <div class="menu-item" onclick="window.location.href='notifications.html'"><i class="fas fa-bell"></i>
+                    الإشعارات</div>
+                <div class="menu-item" onclick="window.location.href='banners.html'"><i class="fas fa-images"></i>
+                    البانرات</div>
+                <div class="menu-item" onclick="window.location.href='security.html'"><i class="fas fa-shield-alt"></i>
+                    الأمان</div>
+                <div class="menu-item" onclick="window.location.href='settings.html'"><i class="fas fa-cogs"></i>
+                    الإعدادات</div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="menu-item" id="admin-logout" style="color:#ef4444; cursor:pointer;"><i
+                        class="fas fa-sign-out-alt"></i> خروج
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div style="display:flex; align-items:center; gap:1rem;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"><i class="fas fa-bars"></i></button>
+                    <h3>إدارة المساعدين (Admins)</h3>
+                </div>
+                <div class="top-actions">
+                    <button class="btn btn-primary" id="open-add-admin-modal"
+                        style="background:#6366f1; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;">
+                        <i class="fas fa-plus"></i> إضافة مساعد جديد
+                    </button>
+                    <div class="profile-widget">
+                        <div class="avatar" style="background:#6366f1;">A</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="content-card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>الدور</th>
+                                    <th>عدد المعلمين</th>
+                                    <th>الحالة</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admins-table-body">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">جاري التحميل...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Add/Edit Admin -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <h3 id="modal-title">إضافة مساعد جديد</h3>
+                <i class="fas fa-times" id="close-modal" style="cursor:pointer; font-size:1.2rem;"></i>
+            </div>
+
+            <form id="admin-form">
+                <input type="hidden" id="edit-admin-id">
+
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px; color:#cbd5e1;">الاسم</label>
+                    <input type="text" id="admin-name" required
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px; color:#cbd5e1;">البريد الإلكتروني</label>
+                    <input type="email" id="admin-email" required
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:15px;" id="password-group">
+                    <label style="display:block; margin-bottom:5px; color:#cbd5e1;">كلمة المرور</label>
+                    <input type="password" id="admin-password"
+                        style="width:100%; padding:10px; background:#1e293b; border:1px solid #334155; color:white; border-radius:8px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:10px; color:#cbd5e1;">المعلمين المسندين (اختياري)</label>
+                    <div class="custom-select-wrapper" id="teachers-multiselect">
+                        <div class="custom-select-trigger" id="teachers-dropdown-trigger">
+                            <span class="placeholder" style="color:#94a3b8;">اختر المعلمين...</span>
+                            <i class="fas fa-chevron-down"
+                                style="font-size:0.8rem; color:#94a3b8; margin-right:auto;"></i>
+                        </div>
+                        <div class="custom-select-options" id="custom-teacher-options">
+                            <!-- Populated by JS -->
+                            <div style="padding:10px; color:#94a3b8;">جاري التحميل...</div>
+                        </div>
+                    </div>
+                    <div style="color:#94a3b8; font-size:0.8rem; margin-top:5px;">
+                        * اتركها فارغة ليكون "مساعد عام" (يشاهد بيانات كل المعلمين).<br>
+                        * اضغط Ctrl (أو Command) لتحديد أكثر من معلم.
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:10px; color:#cbd5e1;">الصلاحيات (الصفحات
+                        المسموحة)</label>
+                    <div class="permissions-grid">
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-teachers" value="teachers.html">
+                            <label for="perm-teachers">المعلمين</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-students" value="students.html">
+                            <label for="perm-students">الطلاب</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-courses" value="courses.html">
+                            <label for="perm-courses">الكورسات</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-financials" value="financials.html">
+                            <label for="perm-financials">المالية</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-settings" value="settings.html">
+                            <label for="perm-settings">الإعدادات</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm-impersonate" value="impersonate">
+                            <label for="perm-impersonate">الدخول كمعلم 🕵️‍♂️</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn"
+                    style="width:100%; padding:12px; background:#6366f1; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    حفظ البيانات
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- UI Logic -->
+    <script>
+        document.getElementById('open-sidebar').onclick = () => document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('open-add-admin-modal').onclick = () => {
+            document.getElementById('modal-title').innerText = 'إضافة مساعد جديد';
+            document.getElementById('admin-form').reset();
+            document.getElementById('edit-admin-id').value = '';
+            document.getElementById('admin-modal').style.display = 'flex';
+        };
+        document.getElementById('close-modal').onclick = () => document.getElementById('admin-modal').style.display = 'none';
+
+        // Close on outside click
+        window.onclick = function (event) {
+            const modal = document.getElementById('admin-modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <script type="module" src="../assets/js/admin/manage-admins.js"></script>
+</body>
+
+</html>

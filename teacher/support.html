@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدعم الفني - Ta3leemy Teacher</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../assets/css/teacher/support.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer; margin-left:10px;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">الدعم الفني للمعلمين</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content" style="display:flex; align-items:center; min-height:80vh;">
+
+                <div class="support-actions-container">
+                    <div class="support-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h2 style="color:white; margin-bottom:10px;">الدعم الفني</h2>
+                        <p style="color:#94a3b8; margin-bottom:30px;">نحن هنا لمساعدتك في أي وقت. اختر الوسيلة
+                            المناسبة.</p>
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+                            <button class="support-btn btn-tickets" onclick="openTickets()">
+                                <i class="fas fa-ticket-alt"></i> تذاكر الدعم
+                            </button>
+
+                            <button class="support-btn btn-whatsapp" onclick="openWhatsapp()">
+                                <i class="fab fa-whatsapp"></i> تواصل معنا
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat View -->
+    <div class="chat-view" id="chat-view">
+        <header class="chat-header">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button onclick="closeChat()" class="btn-icon" style="color:white;"><i
+                        class="fas fa-arrow-right"></i></button>
+                <h3 style="margin:0; color:white;">المحادثة مع الإدارة</h3>
+            </div>
+        </header>
+
+        <div class="chat-body" id="chat-body">
+            <!-- Messages -->
+            <div style="text-align:center; color:#64748b; margin-top:20px;">ابدأ المحادثة...</div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="chat-input" class="chat-input" placeholder="اكتب رسالتك...">
+            <button class="btn-icon" id="send-btn"
+                style="background:#6366f1; width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-paper-plane" style="color:white;"></i>
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/header-manager.js"></script>
+    <script type="module" src="../assets/js/global-ui.js"></script>
+    <script type="module" src="../assets/js/teacher/support-chat.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+    <script>
+        window.toggleSubmenu = function (id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+            }
+        };
+    </script>
+</body>
+
+</html>

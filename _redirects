@@ -1,0 +1,3 @@
+# Netlify Rewrites
+# Fallback for SPA-like routes if any, or just 404 handling.
+/*  /index.html  200

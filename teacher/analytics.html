@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحليل المبيعات - Ta3leemy</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar-redesigned"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0f172a; border-bottom: 1px solid #1e293b;">
+                <div class="header-right" style="display:flex; align-items:center; gap:15px;">
+                    <button class="btn-icon mobile-only" id="open-sidebar"
+                        style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;"><i
+                            class="fas fa-bars"></i></button>
+                    <div class="header-title" style="display:flex; align-items:center; gap:10px;">
+                        <img src="../assets/images/logo.png" alt="Logo"
+                            style="height:35px; border-radius:50%;">
+                        <div>
+                            <h3 style="margin:0; color:white; font-size:1.2rem;">تحليل المبيعات</h3>
+                            <p id="platform-name" style="margin:0; font-size:0.8rem; color:#94a3b8;">منصتي التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-actions">
+                    <!-- Content injected by Global UI / Header Manager usually, but we need structure -->
+                    <!-- We can leave empty if JS fills it, but button is critical -->
+                </div>
+            </header>
+
+            <div class="page-content">
+                <h2 style="margin-bottom:20px; color:white;">لوحة التحكم المالية</h2>
+
+                <!-- Subscription Stats (Moved from Dashboard) -->
+                <div class="stats-grid" id="usage-stats-grid"
+                    style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:20px; margin-bottom:30px;">
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">المساحة المستخدمة</div>
+                        <div
+                            style="direction:ltr; text-align:right; font-size:1.5rem; font-weight:bold; color:#cbd5e1;">
+                            <span id="stat-storage-used">0.00</span> <span style="font-size:1rem; color:#64748b;">/
+                                <span id="stat-storage-limit">5</span> GB</span>
+                        </div>
+                    </div>
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">الطلاب المشتركين</div>
+                        <div
+                            style="direction:ltr; text-align:right; font-size:1.5rem; font-weight:bold; color:#cbd5e1;">
+                            <span id="stat-students-current">0</span> <span style="font-size:1rem; color:#64748b;">/
+                                <span id="stat-students-limit">50</span></span>
+                        </div>
+                    </div>
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">الدورات النشطة</div>
+                        <div id="stat-courses-active" style="font-size:1.8rem; font-weight:bold; color:#f59e0b;">0
+                        </div>
+                    </div>
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">الباقة الحالية</div>
+                        <div id="stat-plan-name" style="font-size:1.8rem; font-weight:bold; color:#8b5cf6;">FREE
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color:white; margin-bottom:15px;">المبيعات والأرباح</h3>
+                <!-- Stat Cards -->
+                <div class="stats-grid"
+                    style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:20px; margin-bottom:30px;">
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">إجمالي المبيعات (الشهر)</div>
+                        <div id="stat-month-sales" style="font-size:1.8rem; font-weight:bold; color:#10b981;">0 ج.م
+                        </div>
+                        <div id="stat-month-count" style="font-size:0.85rem; color:#cbd5e1; margin-top:5px;">0 عملية بيع
+                        </div>
+                    </div>
+
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">إجمالي المبيعات (الكل)</div>
+                        <div id="stat-total-sales" style="font-size:1.8rem; font-weight:bold; color:#3b82f6;">0 ج.م
+                        </div>
+                        <div id="stat-total-count" style="font-size:0.85rem; color:#cbd5e1; margin-top:5px;">0 عملية بيع
+                        </div>
+                    </div>
+
+                    <div class="stat-card"
+                        style="background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155;">
+                        <div style="color:#94a3b8; font-size:0.9rem; margin-bottom:10px;">أكثر الدورات مبيعاً</div>
+                        <div id="stat-top-course" style="font-size:1.1rem; font-weight:bold; color:#f59e0b;">-</div>
+                        <div id="stat-top-course-count" style="font-size:0.85rem; color:#cbd5e1; margin-top:5px;">0 طالب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-split" style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+                    <!-- Chart -->
+                    <div class="content-card"
+                        style="background:#1e293b; border-radius:12px; padding:20px; border:1px solid #334155;">
+                        <h3 style="margin-bottom:15px; font-size:1.1rem;">أداء المبيعات (آخر 6 شهور)</h3>
+                        <canvas id="salesChart" height="250"></canvas>
+                    </div>
+
+                    <!-- Top Students -->
+                    <div class="content-card"
+                        style="background:#1e293b; border-radius:12px; padding:20px; border:1px solid #334155;">
+                        <h3 style="margin-bottom:15px; font-size:1.1rem;">أحدث المشتركين</h3>
+                        <div id="recent-sales-list" style="display:flex; flex-direction:column; gap:10px;">
+                            <div style="text-align:center; color:#64748b; padding:20px;">جاري التحميل...</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/dashboard.js"></script>
+    <script type="module" src="../assets/js/teacher-analytics.js"></script>
+    <script type="module">
+        import { initTeacherUI } from '../assets/js/teacher-ui.js';
+        document.addEventListener('DOMContentLoaded', initTeacherUI);
+    </script>
+</body>
+
+</html>

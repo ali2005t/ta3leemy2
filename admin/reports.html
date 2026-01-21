@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقارير والتحليلات - Ta3leemy Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar"></header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h1>التقارير والتحليلات</h1>
+                        <p>نظرة شاملة على أداء المنصة المالي والتشغيلي</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> طباعة التقرير
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Financial Summary Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="total-lifetime-revenue" style="color:var(--success-color);">0 EGP</h3>
+                            <p>إجمالي الأرباح (الكل)</p>
+                        </div>
+                        <div class="stat-icon" style="background:rgba(16, 185, 129, 0.1); color:#10b981;">
+                            <i class="fas fa-sack-dollar"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="total-month-revenue">0 EGP</h3>
+                            <p>أرباح هذا الشهر</p>
+                        </div>
+                        <div class="stat-icon" style="background:rgba(59, 130, 246, 0.1); color:#3b82f6;">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="active-students-count">0</h3>
+                            <p>طلاب نشطين (اشتروا)</p>
+                        </div>
+                        <div class="stat-icon" style="background:rgba(245, 158, 11, 0.1); color:#f59e0b;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="cards-grid"
+                    style="display: grid; grid-template-columns: 2fr 1fr; margin-bottom: 2rem; gap: 1.5rem;">
+
+                    <!-- Main Chart: Revenue Trend -->
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3>منحني النمو (الإيرادات)</h3>
+                        </div>
+                        <div class="card-body" style="height: 300px;">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Pie Chart: Course Types -->
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3>توزيع المبيعات</h3>
+                        </div>
+                        <div class="card-body" style="height: 300px; display:flex; justify-content:center;">
+                            <canvas id="salesTypeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Performers Tables -->
+                <div class="cards-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+                    <!-- Top Teachers -->
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3>🏆 المعلمون الأكثر مبيعاً</h3>
+                        </div>
+                        <div class="table-container" style="border:none; box-shadow:none;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>المعلم</th>
+                                        <th>عدد المبيعات</th>
+                                        <th>الإجمالي</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-teachers-body">
+                                    <tr>
+                                        <td colspan="3" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top Courses -->
+                    <div class="content-card">
+                        <div class="card-header"
+                            style="padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.05);">
+                            <h3>📚 الكورسات الأكثر طلباً</h3>
+                        </div>
+                        <div class="table-container" style="border:none; box-shadow:none;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>اسم الكورس</th>
+                                        <th>المعلم</th>
+                                        <th>عدد مرات الشراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-courses-body">
+                                    <tr>
+                                        <td colspan="3" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/admin/admin-reports.js"></script>
+    <script type="module">
+        import { initAdminUI } from '../assets/js/admin/admin-ui.js';
+        document.addEventListener('DOMContentLoaded', () => initAdminUI('التقارير'));
+    </script>
+</body>
+
+</html>
