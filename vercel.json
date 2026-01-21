@@ -1,0 +1,18 @@
+{
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+        {
+            "source": "/login",
+            "destination": "/student-app/login.html"
+        },
+        {
+            "source": "/register",
+            "destination": "/student-app/register.html"
+        },
+        {
+            "source": "/student-app/:path*",
+            "destination": "/student-app/:path*"
+        }
+    ]
+}
