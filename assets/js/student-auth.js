@@ -77,6 +77,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (teacherId) {
         sessionStorage.setItem('currentTeacherId', teacherId);
 
+        // CLEAN URL: Remove 't' query param from address bar for a cleaner look
+        if (params.get('t')) {
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+            window.history.replaceState({ path: newUrl }, '', newUrl);
+        }
+
         // Retain 't' in links ONLY if we don't have a hash slug (Legacy Mode)
         // If we have a hash slug, we prefer that for cleaner URLs
         const hasSlug = window.location.hash && window.location.hash.startsWith('#/');
