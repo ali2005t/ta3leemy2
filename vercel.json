@@ -1,4 +1,8 @@
 {
-    "cleanUrls": true,
-    "trailingSlash": false
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "^/student-app$", "dest": "/student-app/index.html" }
+  ]
 }
