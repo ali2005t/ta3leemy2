@@ -4,7 +4,7 @@
     "redirects": [
         {
             "source": "/login",
-            "destination": "/student-app/login",
+            "destination": "/student-app/",
             "permanent": false
         },
         {

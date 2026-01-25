@@ -165,19 +165,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tid) {
         sessionStorage.setItem('currentTeacherId', tid);
 
-        // Clean URL (remove t from visible URL)
+        // Clean URL (remove t from visible URL) with DELAY
         // Keep hash route if exists but remove ?t=...
-        let cleanHash = window.location.hash;
-        if (cleanHash.includes('?')) cleanHash = cleanHash.split('?')[0];
+        setTimeout(() => {
+            let cleanHash = window.location.hash;
+            if (cleanHash.includes('?')) cleanHash = cleanHash.split('?')[0];
 
-        const newUrl =
-            window.location.protocol +
-            "//" +
-            window.location.host +
-            window.location.pathname +
-            cleanHash;
+            const newUrl =
+                window.location.protocol +
+                "//" +
+                window.location.host +
+                window.location.pathname +
+                cleanHash;
 
-        window.history.replaceState({ path: newUrl }, '', newUrl);
+            window.history.replaceState({ path: newUrl }, '', newUrl);
+        }, 5000); // 5 Seconds delay to allow copying
     }
     // -----------------------------------------------------------
 

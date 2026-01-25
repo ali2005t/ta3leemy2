@@ -171,20 +171,20 @@
     <script type="module" src="../assets/js/global-ui.js"></script>
     <script type="module" src="../assets/js/notification-manager.js"></script>
     <script type="module" src="../assets/js/student-home.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // التحقق من وجود التوكن
-            const sessionData = localStorage.getItem('median_session');
-            if (sessionData) {
-                const { token } = JSON.parse(sessionData);
-                if (token) {
-                    console.log('تم العثور على التوكن:', token);
-                    // إعادة التوجيه بناءً على التوكن
-                    window.location.href = `/student-app/home?t=${token}`;
-                }
-            }
-        });
-    </script>
+    /* Auto-redirect disabled by user request - Stay on Index
+    document.addEventListener('DOMContentLoaded', () => {
+    // التحقق من وجود التوكن
+    const sessionData = localStorage.getItem('median_session');
+    if (sessionData) {
+    const { token } = JSON.parse(sessionData);
+    if (token) {
+    console.log('تم العثور على التوكن:', token);
+    // إعادة التوجيه بناءً على التوكن
+    // window.location.href = `/student-app/home?t=${token}`;
+    }
+    }
+    });
+    */
 
 </body>
 
