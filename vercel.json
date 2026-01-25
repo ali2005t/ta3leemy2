@@ -1,46 +1,22 @@
 {
     "cleanUrls": true,
     "trailingSlash": false,
-    "rewrites": [
+    "redirects": [
         {
             "source": "/login",
-            "destination": "/student-app/login.html"
+            "destination": "/student-app/login",
+            "permanent": false
         },
         {
             "source": "/register",
-            "destination": "/student-app/register.html"
-        },
+            "destination": "/student-app/register",
+            "permanent": false
+        }
+    ],
+    "rewrites": [
         {
-            "source": "/home",
-            "destination": "/student-app/home.html"
-        },
-        {
-            "source": "/profile",
-            "destination": "/student-app/profile.html"
-        },
-        {
-            "source": "/my-courses",
-            "destination": "/student-app/my-courses.html"
-        },
-        {
-            "source": "/library",
-            "destination": "/student-app/library.html"
-        },
-        {
-            "source": "/notifications",
-            "destination": "/student-app/notifications.html"
-        },
-        {
-            "source": "/support",
-            "destination": "/student-app/support.html"
-        },
-        {
-            "source": "/course-view",
-            "destination": "/student-app/course-view.html"
-        },
-        {
-            "source": "/student-app/:path*",
-            "destination": "/student-app/:path*"
+            "source": "/student-app",
+            "destination": "/student-app/index.html"
         }
     ]
 }

@@ -150,15 +150,33 @@ function initDesktopMenu() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // --- GLOBAL URL CLEANUP (Removes ?t=xyz visible clutter) ---
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('t')) {
-        const tid = params.get('t');
+document.addEventListener('DOMContentLoaded', () => {
+    // --- GLOBAL URL CAPTURE (t can be in search OR inside hash) ---
+    const searchParams = new URLSearchParams(window.location.search);
+    let tid = searchParams.get('t');
+
+    // Support if token is accidentally inside hash (backup)
+    if (!tid && window.location.hash.includes('?')) {
+        const hashQuery = window.location.hash.split('?')[1];
+        const hashParams = new URLSearchParams(hashQuery);
+        tid = hashParams.get('t');
+    }
+
+    if (tid) {
         sessionStorage.setItem('currentTeacherId', tid);
-        
-        // Remove 't' param from URL visually
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+
+        // Clean URL (remove t from visible URL)
+        // Keep hash route if exists but remove ?t=...
+        let cleanHash = window.location.hash;
+        if (cleanHash.includes('?')) cleanHash = cleanHash.split('?')[0];
+
+        const newUrl =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            window.location.pathname +
+            cleanHash;
+
         window.history.replaceState({ path: newUrl }, '', newUrl);
     }
     // -----------------------------------------------------------

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../assets/css/student-home.css">
     <link rel="stylesheet" href="../assets/css/landing-layouts.css">
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<link rel='icon' href='../assets/images/logo.png' type='image/png'>
+    <link rel='icon' href='../assets/images/logo.png' type='image/png'>
 </head>
 
 <body>
@@ -180,7 +180,7 @@
                 if (token) {
                     console.log('تم العثور على التوكن:', token);
                     // إعادة التوجيه بناءً على التوكن
-                    window.location.href = `/home?t=${token}`;
+                    window.location.href = `/student-app/home?t=${token}`;
                 }
             }
         });
@@ -189,4 +189,3 @@
 </body>
 
 </html>
-
