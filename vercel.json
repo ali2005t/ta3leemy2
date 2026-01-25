@@ -3,6 +3,7 @@
   "outputDirectory": ".",
   "public": true,
   "redirects": [
+    { "source": "/(.+)\\.html$", "destination": "/$1", "permanent": false },
     { "source": "/([^.]+)$", "destination": "/$1.html", "permanent": false }
   ]
 }
