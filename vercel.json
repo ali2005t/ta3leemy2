@@ -1,10 +1,8 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "buildCommand": "",
   "outputDirectory": ".",
   "public": true,
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" }
+  "redirects": [
+    { "source": "/([^.]+)$", "destination": "/$1.html", "permanent": false }
   ]
 }
