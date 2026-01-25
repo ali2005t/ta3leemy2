@@ -4,12 +4,12 @@
     "redirects": [
         {
             "source": "/login",
-            "destination": "/student-app/",
+            "destination": "/student-app/login.html",
             "permanent": false
         },
         {
             "source": "/register",
-            "destination": "/student-app/register",
+            "destination": "/student-app/register.html",
             "permanent": false
         }
     ],
@@ -17,6 +17,10 @@
         {
             "source": "/student-app",
             "destination": "/student-app/index.html"
+        },
+        {
+            "source": "/student-app/:path*",
+            "destination": "/student-app/:path*"
         }
     ]
 }
