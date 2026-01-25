@@ -1,6 +1,4 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "buildCommand": "",
   "outputDirectory": ".",
   "public": true,
@@ -14,7 +12,7 @@
     { "src": "^/admin/?(.*)$", "dest": "/admin/$1" },
     { "src": "^/student-app/?(.*)$", "dest": "/student-app/$1" },
     { "src": "^/teacher/?(.*)$", "dest": "/teacher/$1" },
-    { "src": "/(.*)", "dest": "/$1.html" },
-    { "src": "/", "dest": "/index.html" }
+    { "src": "^/(.+)$", "dest": "/$1.html" },
+    { "src": "^/$", "dest": "/index.html" }
   ]
 }
