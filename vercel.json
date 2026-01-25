@@ -14,5 +14,9 @@
       "destination": "/student-app/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    { "source": "/student-app", "destination": "/student-app/index.html" },
+    { "source": "/student-app/(.*)", "destination": "/student-app/index.html" }
   ]
 }
