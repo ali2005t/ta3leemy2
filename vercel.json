@@ -2,8 +2,17 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     { "source": "/(.+)\\.html$", "destination": "/$1", "permanent": true },
-    { "source": "/([^.]+)$", "destination": "/$1.html", "permanent": false }
+    { "source": "/([^.]+)$", "destination": "/$1.html", "permanent": false },
+    { "source": "/student-app", "destination": "/student-app/index.html", "permanent": false },
+    { "source": "/student-app/:path*", "destination": "/student-app/:path*", "permanent": false },
+    {
+      "source": "/login",
+      "destination": "/student-app/",
+      "permanent": false
+    }
   ]
 }
