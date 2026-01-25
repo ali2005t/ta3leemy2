@@ -34,8 +34,8 @@
                 <span id="platform-name">منصتي</span>
             </div>
             <div style="display:flex; gap:10px;">
-                <a href="login.html" class="nav-btn btn-outline">دخول</a>
-                <a href="register.html" class="nav-btn btn-solid">حساب جديد</a>
+                <a href="/login" class="nav-btn btn-outline">دخول</a>
+                <a href="/register" class="nav-btn btn-solid">حساب جديد</a>
             </div>
         </div>
     </header>
@@ -171,6 +171,20 @@
     <script type="module" src="../assets/js/global-ui.js"></script>
     <script type="module" src="../assets/js/notification-manager.js"></script>
     <script type="module" src="../assets/js/student-home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // التحقق من وجود التوكن
+            const sessionData = localStorage.getItem('median_session');
+            if (sessionData) {
+                const { token } = JSON.parse(sessionData);
+                if (token) {
+                    console.log('تم العثور على التوكن:', token);
+                    // إعادة التوجيه بناءً على التوكن
+                    window.location.href = `/home?t=${token}`;
+                }
+            }
+        });
+    </script>
 
 </body>
 
