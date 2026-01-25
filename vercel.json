@@ -1,8 +1,20 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "public": true,
   "routes": [
     { "handle": "filesystem" },
-    { "src": "^/student-app$", "dest": "/student-app/index.html" }
+    { "src": "^/login/?$", "dest": "/auth/login.html" },
+    { "src": "^/register/?$", "dest": "/auth/register.html" },
+    { "src": "^/forgot-password/?$", "dest": "/auth/forgot-password.html" },
+    { "src": "^/verify-email/?$", "dest": "/auth/verify_email.html" },
+    { "src": "^/reset-password/?$", "dest": "/auth/reset_password.html" },
+    { "src": "^/admin/?(.*)$", "dest": "/admin/$1" },
+    { "src": "^/student-app/?(.*)$", "dest": "/student-app/$1" },
+    { "src": "^/teacher/?(.*)$", "dest": "/teacher/$1" },
+    { "src": "/(.*)", "dest": "/$1.html" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
