@@ -151,6 +151,18 @@ function initDesktopMenu() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // --- GLOBAL URL CLEANUP (Removes ?t=xyz visible clutter) ---
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('t')) {
+        const tid = params.get('t');
+        sessionStorage.setItem('currentTeacherId', tid);
+        
+        // Remove 't' param from URL visually
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+    }
+    // -----------------------------------------------------------
+
     applyBranding();
     initDesktopMenu();
 
