@@ -3,11 +3,11 @@
   "outputDirectory": ".",
   "public": true,
   "rewrites": [
-    { "source": "^/admin/(.*)$", "destination": "/admin/$1" },
-    { "source": "^/student-app/(.*)$", "destination": "/student-app/$1" },
-    { "source": "^/teacher/(.*)$", "destination": "/teacher/$1" },
-    { "source": "^/auth/(.*)$", "destination": "/auth/$1" },
-    { "source": "^/([^.]+)$", "destination": "/$1.html" },
+    { "source": "^/admin/(.+)$", "destination": "/admin/$1.html" },
+    { "source": "^/student-app/(.+)$", "destination": "/student-app/$1.html" },
+    { "source": "^/teacher/(.+)$", "destination": "/teacher/$1.html" },
+    { "source": "^/auth/(.+)$", "destination": "/auth/$1.html" },
+    { "source": "^/(.+)$", "destination": "/$1.html" },
     { "source": "^/$", "destination": "/index.html" }
   ]
 }
