@@ -1,22 +1,46 @@
 {
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "public": true,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/(.+)\\.html$", "destination": "/$1", "permanent": true },
-    { "source": "/([^.]+)$", "destination": "/$1.html", "permanent": false },
-    { "source": "/student-app", "destination": "/student-app/index.html", "permanent": false },
-    { "source": "/student-app/:path*", "destination": "/student-app/:path*", "permanent": false },
-    {
-      "source": "/login",
-      "destination": "/student-app/",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    { "source": "/student-app", "destination": "/student-app/index.html" },
-    { "source": "/student-app/(.*)", "destination": "/student-app/index.html" }
-  ]
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+        {
+            "source": "/login",
+            "destination": "/student-app/login.html"
+        },
+        {
+            "source": "/register",
+            "destination": "/student-app/register.html"
+        },
+        {
+            "source": "/home",
+            "destination": "/student-app/home.html"
+        },
+        {
+            "source": "/profile",
+            "destination": "/student-app/profile.html"
+        },
+        {
+            "source": "/my-courses",
+            "destination": "/student-app/my-courses.html"
+        },
+        {
+            "source": "/library",
+            "destination": "/student-app/library.html"
+        },
+        {
+            "source": "/notifications",
+            "destination": "/student-app/notifications.html"
+        },
+        {
+            "source": "/support",
+            "destination": "/student-app/support.html"
+        },
+        {
+            "source": "/course-view",
+            "destination": "/student-app/course-view.html"
+        },
+        {
+            "source": "/student-app/:path*",
+            "destination": "/student-app/:path*"
+        }
+    ]
 }
