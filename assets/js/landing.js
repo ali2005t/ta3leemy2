@@ -202,6 +202,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         mobileBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
 
+            // Clone buttons if not already there
+            if (!navLinks.querySelector('.mobile-actions')) {
+                const actions = document.querySelector('.nav-actions');
+                if (actions) {
+                    const mobileActions = document.createElement('div');
+                    mobileActions.className = 'mobile-actions';
+                    mobileActions.innerHTML = actions.innerHTML;
+                    mobileActions.style.display = 'flex';
+                    mobileActions.style.flexDirection = 'column';
+                    mobileActions.style.gap = '1rem';
+                    mobileActions.style.marginTop = '1rem';
+                    mobileActions.style.width = '100%';
+                    navLinks.appendChild(mobileActions);
+                }
+            }
+
             // Switch Icon
             const icon = mobileBtn.querySelector('i');
             if (icon) {

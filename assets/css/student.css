@@ -104,6 +104,25 @@ body {
     transition: all 0.2s;
 }
 
+/* Force Auth Inputs to look Premium (Glass) */
+.auth-box .form-input,
+.auth-box .phone-input-group {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+.auth-box .form-input:focus,
+.auth-box .phone-input-group:focus-within {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: var(--app-primary) !important;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1) !important;
+}
+
+.auth-box .form-label {
+    color: var(--app-text-muted);
+}
+
 .form-input:focus {
     outline: none;
     border-color: var(--app-primary);

@@ -99,11 +99,20 @@
 .mobile-menu-btn {
     display: none;
     background: transparent;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
     color: var(--text-color);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
     z-index: 101;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
 }
 
 /* Hero Section */
@@ -544,12 +553,14 @@
         left: 0;
         width: 100%;
         background: rgba(2, 6, 23, 0.98);
+        /* Dark background */
         flex-direction: column;
         padding: 2rem;
-        gap: 1.5rem;
+        gap: 1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         text-align: center;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
 
     .nav-links.active {
@@ -558,10 +569,17 @@
         animation: fadeIn 0.3s ease;
     }
 
-    .nav-links a {
-        font-size: 1.2rem;
+    .nav-links a:not(.btn) {
+        font-size: 1.1rem;
         display: block;
-        padding: 0.5rem 0;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+    }
+
+    .nav-links .mobile-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .nav-actions {
