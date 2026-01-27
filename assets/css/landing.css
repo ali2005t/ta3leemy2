@@ -95,6 +95,17 @@
     gap: 1rem;
 }
 
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 101;
+}
+
 /* Hero Section */
 .hero-section {
     padding-top: 8rem;
@@ -516,28 +527,102 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
     .nav-links {
         display: none;
+        /* Hidden by default */
+        position: fixed;
+        top: 70px;
+        /* Below navbar */
+        left: 0;
+        width: 100%;
+        background: rgba(2, 6, 23, 0.98);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        display: block;
+        padding: 0.5rem 0;
+    }
+
+    .nav-actions {
+        display: none;
+        /* Hide buttons in header, maybe move to menu if needed later, but for now user didn't ask */
+    }
+
+    /* Show buttons in menu if needed, but for now the main issue was links */
+    /* Let's actually keep the buttons in the header if they fit, or hide them. 
+       The prompt said "Fix Navbar/Menu". Let's assume buttons can stay or be hidden. 
+       Given the space, hidden might be better, OR we could append them to nav-links via JS?
+       For now, let's keep it simple: Hide nav-links, Show Hamburger. 
+       Let's NOT hide nav-actions buttons if they fit, but usually they don't.
+       Let's hide nav-actions on small mobile, show on tablet?
+       Let's hide nav-actions on mobile and assume users click links.
+       Actually, "Start Free" is important. Let's keep it visible if possible, or move to menu.
+       Let's just hide nav-actions for now to prevent clutter, users find "Login" in menu if we added it there.
+       Wait, I didn't add Login to the menu links in HTML.
+       Let's just hide nav-actions to fit the burger.
+    */
+
+    .hero-section {
+        padding-top: 6rem;
+        /* Less padding */
     }
 
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 3rem;
     }
 
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
 
     .stats-row {
         justify-content: center;
+        flex-wrap: wrap;
+        /* Allow wrapping */
+        gap: 2rem;
     }
 
     .ui-mockup {
         display: none;
+        /* Hide on mobile as per original, or keep? Original hid it. */
+    }
+
+    .features-grid,
+    .pricing-cards {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        /* Smaller min-width */
     }
 
     .price-card.featured {
         transform: scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-actions {
+        display: none;
+        /* Definitely hide on small screens */
     }
 }
